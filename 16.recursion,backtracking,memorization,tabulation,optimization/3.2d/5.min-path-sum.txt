@@ -1,0 +1,40 @@
+class Solution {
+    int f(vector<vector<int>>& grid, int m, int n,vector<vector<int>>& dp){
+        if(m < 1 || n < 1)  return INT_MAX;
+        if(m == 1 && n == 1)    return grid[0][0];
+        if(dp[m][n] != -1)  return dp[m][n];
+        int down = f(grid, m-1, n, dp);
+        int right = f(grid, m, n-1, dp);
+        return dp[m][n] = min(down, right) + grid[m-1][n-1];
+    }
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<vector<int>> dp(m, vector<int>(n));
+        dp[0][0] = grid[0][0];
+        for(int i = 0; i < m; ++i){
+            for(int j = 0; j < n; ++j){
+                if(i == 0 && j == 0)    continue;
+                dp[i][j] = min(j?dp[i][j-1]:INT_MAX, i?dp[i-1][j]:INT_MAX) + grid[i][j];
+            }
+        }
+        return dp[m-1][n-1];
+    }
+};
+
+
+    int minPathSum(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<vector<int>> dp(2, vector<int>(n));
+        dp[1][0] = grid[0][0];
+        for(int i = 0; i < m; ++i){
+            for(int j = 0; j < n; ++j){
+                if(i == 0 && j == 0)    continue;
+                dp[1][j] = min(j?dp[1][j-1]:INT_MAX, i?dp[0][j]:INT_MAX) + grid[i][j];
+            }
+            dp[0] = dp[1];
+        }
+        return dp[m-1 != 0][n-1];
+    }

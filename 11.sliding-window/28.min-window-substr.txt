@@ -1,0 +1,30 @@
+string minWindow(string s, string t) {
+    int n = s.size() ,m = t.size();
+    int i = 0 ,ans = INT_MAX ,st = 0 ,freq = m;
+    if(m > n){
+        return "";
+    }
+    unordered_map<char,int> hsh;
+    for(auto &ch : t){
+        hsh[ch]++;
+    }
+    for(int j = 0; j < n; ++j){
+        char ch = s[j];
+        if(hsh[ch] > 0){
+            freq--;
+        }
+        hsh[ch]--;
+        while(!freq){
+            if(ans > (j-i+1)){
+                ans = j-i+1;
+                st = i;
+            }
+            hsh[s[i]]++;
+            if(hsh[s[i]] > 0){
+                freq++;
+            }
+            i++;
+        }
+    }
+    return ((ans == INT_MAX)? "" : (s.substr(st,ans)));
+}

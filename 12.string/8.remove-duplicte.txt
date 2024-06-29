@@ -1,0 +1,26 @@
+string removeDuplicates(string s) {
+    string ans = "";
+    for(auto& ch : s){
+        if(ans != "" && ans.back() == ch){
+            ans.pop_back();
+            continue;
+        }
+        ans += ch;
+    }
+    return ans;
+}
+
+string removeDuplicates(string s) {
+    int n = s.size();
+    for(int i = 0; i < n-1;){
+        char ch = s[i];
+        if(ch == s[i+1]){
+            s.erase(i,2);
+            i = max(0,i-1);
+        }
+        else{
+            i++;
+        }
+    }
+    return s;
+}

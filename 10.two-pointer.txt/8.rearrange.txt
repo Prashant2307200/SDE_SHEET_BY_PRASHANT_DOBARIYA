@@ -1,0 +1,22 @@
+vector<int> RearrangebySign(vector<int>A, int n){ 
+    vector<int> pos, neg;
+    for(int i = 0; i < n; i++){
+        if(A[i] > 0) pos.push_back(A[i]);
+        else neg.push_back(A[i]);
+    }
+    for(int i = 0; i < n/2; i++)
+        A[2*i] = pos[i], A[2*i+1] = neg[i];
+    return A;
+}
+
+vector<int> RearrangebySign(vector<int>A){
+    int n = A.size();
+    vector<int> ans(n,0);
+    int posIndex = 0, negIndex = 1;
+    for(int i = 0; i < n; i++){
+        if(A[i] < 0)
+            ans[negIndex] = A[i], negIndex+=2;
+        else
+            ans[posIndex] = A[i], posIndex+=2;
+    }return ans;
+}

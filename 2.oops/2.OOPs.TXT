@@ -1,0 +1,87 @@
+OOPs :
+
+
+ENCAPSULATION : data / information hiding
+ABSTRACTION   : implementation hiding
+INHERITENCE   : mode ,types ,ambiguity
+POLYMORPHISM  : runtime(method overriding,virtual)
+                compiletime(func/op oveerloading)
+
+Complex operator + (Complex const& obj){
+    Complex res;
+    res.real = this.real + obj.real;
+    res.imag = this.imag + obj.imag;
+    return res;
+}
+
+base* basePtr;
+derived d;
+basePtr = &d;
+basePtr -> print();
+
+class C: public A,public B{};
+C objC;
+objC.B::func();
+
+
+#include<bits/stdc++.h>
+using namespace std;
+        
+class Human{
+    protected :
+        bool gender;
+};
+        
+class Student : public Human{
+    private :
+        char* name;
+        int age;
+    public :
+        static int timeToComplete;
+        static int access(){
+            return timeToComplete;
+        }
+        Student(){
+            this -> name   = new char[100];
+            this -> age    = 0;
+            this -> gender = 0;
+        }
+        Student(char name[],int age,bool gender){
+            this -> name = new char[100];
+            strcpy(this -> name ,name);
+            this->age    = age;
+            this->gender = gender;
+        }
+        Student(Student &s){
+            this -> name = new char[100];
+            strcpy(this -> name ,s.name);
+            this->age    = s.age;
+            this->gender = s.gender;
+        }
+        void setChar(char ch){
+            this -> name[2] = ch;
+        }
+        void printInfo(){
+            cout << this -> name    << endl;
+            cout << this -> age     << endl;
+            cout << this -> gender  << endl;
+            cout << endl;
+        }
+        ~Student(){
+            delete (this -> name);
+        }
+};
+        
+int Student :: timeToComplete = 5;
+        
+int main(){
+    cout << Student :: timeToComplete << endl;
+    cout << Student :: access() << endl;
+    Student *a = new Student;
+    char name[4] = "Ram";
+    Student *b  = new Student(name,40,1);
+    Student *c  = new Student(*b);  //copy assignment operator
+    b -> setChar('j');
+    a -> printInfo() ,b -> printInfo() ,c -> printInfo();
+    delete a ,delete b ,delete c;
+}

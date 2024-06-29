@@ -1,0 +1,6 @@
+string moveAllX(string s,int n,int i){
+    if(i == n) return "";
+    char ch = s[i];
+    string ans = moveAllX(s,n,i+1);
+    return ((ch == 'x')?ans+ch:ch+ans);
+}

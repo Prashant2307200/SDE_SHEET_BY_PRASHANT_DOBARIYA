@@ -1,0 +1,20 @@
+memory allocation : default/static | mannually/dynamic
+local : non-accessible | accessible
+memory overflow | required
+order : fix | customise
+
+int a = 10;
+int *p = new int();
+*p = a;
+delete ()p;
+p = new int[5];
+delete []p;
+p = NULL;
+
+int** ptr2D = new int*[row];
+for(int i=0; i<row; i++)
+    ptr2D[i] = new int[col];
+for(int i=0; i<row; i++)
+    delete []ptr2D[i];
+delete []ptr2D;
+ptr2D = NULL;

@@ -1,0 +1,14 @@
+int maxProduct(vector<int>& nums) {
+    int n = nums.size() ,maxi = INT_MIN;
+    int pfxProd = 1 ,sfxProd = 1;
+    for(int i = 0; i < n; ++i){
+        pfxProd *= nums[i];
+        sfxProd *= nums[n-1-i];
+        maxi = max({maxi,pfxProd,sfxProd});
+        if(pfxProd == 0)
+            pfxProd = 1;
+        if(sfxProd == 0)
+            sfxProd = 1;
+    }
+    return maxi;
+}

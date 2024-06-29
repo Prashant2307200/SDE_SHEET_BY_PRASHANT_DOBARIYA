@@ -1,0 +1,10 @@
+int maxRowSum(vector<vector<int>>& matrix){
+    int m = matrix.size(),n = matrix[0].size(),maxRowSum;
+    for(int i = 0; i < m; ++i){
+        int sum = 0;
+        for(int j = 0; j < n; ++j)
+            sum += matrix[i][j];
+        maxRowSum = max(maxRowSum,sum);
+    }
+    return maxRowSum;
+}

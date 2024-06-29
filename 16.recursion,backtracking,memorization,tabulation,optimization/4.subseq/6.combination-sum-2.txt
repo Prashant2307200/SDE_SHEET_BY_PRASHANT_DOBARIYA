@@ -1,0 +1,28 @@
+class Solution {
+    void f(int i,int n,int sum,vector<int>& cnds, int target,
+    vector<vector<int>>& ans,vector<int>& subset){
+        if(i >= n || sum >= target){
+            if(sum == target){
+                ans.push_back(subset);
+            }
+            return;
+        }
+        int next_i = i+1;
+        while(next_i < n && cnds[i] == cnds[next_i]) ++next_i;
+        subset.push_back(cnds[i]);
+        sum += cnds[i];
+        f(i+1,n,sum,cnds,target,ans,subset);
+        sum -= cnds[i];
+        subset.pop_back();
+        f(next_i,n,sum,cnds,target,ans,subset);
+    }
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        int n = candidates.size();
+        vector<int> subset;
+        vector<vector<int>> ans;
+        f(0,n,0,candidates,target,ans,subset);
+        return ans;
+    }
+};

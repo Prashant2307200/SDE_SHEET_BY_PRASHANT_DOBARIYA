@@ -1,0 +1,23 @@
+string sortSentence(string s) {
+    string ans;
+    int n = s.length();
+    int words = 0;
+    for(char &c : s){
+        if(c == ' '){
+            words++;
+        }
+    }words+=1;
+    vector<string> v(words,"");
+    int i = 0;
+    while(i < n){
+        string temp = "";
+        while( i < n && !(s[i] >= '0' && s[i] <= '9') ){
+            temp.push_back(s[i]);
+            i++;
+        }v[s[i] - '0' - 1] = temp;
+        i+=2; 
+    }for(auto x : v){
+        ans = ans + x + " ";
+    }ans.pop_back();
+    return ans;      
+} 

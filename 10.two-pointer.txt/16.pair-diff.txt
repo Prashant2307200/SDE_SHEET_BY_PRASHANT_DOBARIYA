@@ -1,0 +1,15 @@
+bool findPair(int arr[], int size, int n){
+    sort(arr,arr+size);
+    int low = 0 ,high = 1 ,diff;
+    while(high < size){
+        if(high == low) high++;
+        diff = arr[high] - arr[low];
+        if(diff == n)
+            return 1;
+        else if(diff > n)
+            low++;
+        else
+            high++;
+    }
+    return 0;
+}

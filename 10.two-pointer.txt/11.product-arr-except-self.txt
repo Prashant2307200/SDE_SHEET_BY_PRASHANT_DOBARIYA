@@ -1,0 +1,11 @@
+vector<int> productExceptSelf(vector<int>& nums) {
+    int n = nums.size(),pref = 1,suf = 1;
+    vector<int> ans(n,1);
+    for(int i = 1; i < n; ++i){
+        pref *= nums[i-1];
+        suf *= nums[n-i];
+        ans[i] *= pref;
+        ans[n-1-i] *= suf;
+    }
+    return ans;
+}

@@ -1,0 +1,65 @@
+int multiply(int a,int b){
+    int sum = 0;
+    for(int i = 0; i < b; ++i)
+        sum += a;
+    return sum;
+}
+
+int multiply(int a, int b) {
+    int result = 0;
+    while (b) { 
+        if (b & 1) 
+            result += a;
+        a <<= 1; 
+        b >>= 1; 
+    }
+    return result;
+}
+
+double myPow(double x, int n) {
+    double ans = 1;
+    long long pow = n;
+    if(pow < 0) pow = -pow;
+    while(pow){
+        if(pow&1)
+            ans *= x;
+        x *= x;
+        pow >>= 1;
+    }
+    return n < 0? 1/ans : ans;
+}
+
+int divide(int dividend, int divisor) {
+    if(divisor == 1) 
+        return dividend;
+    else if(divisor == -1 && dividend == INT_MIN)
+        return INT_MAX;
+    int sign = dividend > 0 ^ divisor > 0 ? -1 : 1;
+    long long divd = abs(dividend) ,divs = abs(divisor) ,q = 0;
+    while(divd >= divs){
+        divd -= divs;
+        q++;
+    }
+    return q*sign;
+}
+
+int divide(int dividend, int divisor) {
+    if(divisor == 1) 
+        return dividend;
+    else if(divisor == -1 && dividend == INT_MIN)
+        return INT_MAX;
+    long dvd = abs(dividend), dvs = abs(divisor), ans = 0;
+    int sign = dividend > 0 ^ divisor > 0 ? -1 : 1;
+    while (dvd >= dvs) {
+        long temp = dvs, m = 1;
+        while (temp<<1 <= dvd) {
+            m <<= 1;
+            temp <<= 1;
+        }
+        dvd -= temp;
+        ans += m;
+    }
+    return sign * ans;
+} 
+
+

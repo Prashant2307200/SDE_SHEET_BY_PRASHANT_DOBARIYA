@@ -1,0 +1,14 @@
+int kDistinctChars(int k, string &s){
+    int i = 0 ,j = 0 ,n = s.size();
+    unordered_map<char,int> hsh;
+    for(; j < n; ++j){
+        hsh[s[j]]++;
+        if(hsh.size() > k){
+            hsh[s[i]]--;
+            if(hsh[s[i]] == 0)
+                hsh.erase(s[i]);
+            i++;
+        }
+    }
+    return j-i;
+}  

@@ -1,0 +1,9 @@
+int perfectSum(int arr[], int n, int sum) {
+    if (n == 0) return (sum == 0) ? 1 : 0;
+    if(arr[n-1] == 0)   return 2;
+    int inc = 0; 
+    if (arr[n-1] <= sum) 
+        inc = perfectSum(arr, n-1, sum-arr[n-1]);
+    int exc = perfectSum(arr, n-1, sum);
+    return inc + exc;
+}

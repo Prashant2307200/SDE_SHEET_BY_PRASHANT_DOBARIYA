@@ -1,0 +1,4 @@
+sum of two numbers
+max in three
+prime or not
+print prime till N

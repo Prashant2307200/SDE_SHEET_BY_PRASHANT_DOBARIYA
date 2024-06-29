@@ -1,0 +1,23 @@
+int numberOfSubstrings(string s) {
+    int n = s.size() ,i = 0 ,cnt = 0;
+    unordered_map<char,int> hsh;
+    for(int j = 0; j < n; ++j){
+        hsh[s[j]]++;
+        while(hsh['a'] && hsh['b'] && hsh['c']){
+            cnt += (n-j);
+            hsh[s[i++]]--;
+        }
+    }
+    return cnt;
+}
+
+int numberOfSubstrings(string s) {
+    int n = s.size() ,cnt = 0 ,j = 0;
+    int hsh[] = {-1,-1,-1};
+    while(j < n){
+        hsh[s[j]-'a'] = j; 
+        cnt += min({hsh[0],hsh[1],hsh[2]})+1;
+        ++j;
+    }
+    return cnt;
+}

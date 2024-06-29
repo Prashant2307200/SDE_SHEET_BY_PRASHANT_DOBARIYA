@@ -1,0 +1,6 @@
+string removeAdjDup(string s,int n,int i){
+    if(i == n)  return "";
+    char ch = s[i];
+    string rop = removeAdjDup(s,n,i+1);
+    return ((ch == rop[0])?rop:ch+rop);
+}

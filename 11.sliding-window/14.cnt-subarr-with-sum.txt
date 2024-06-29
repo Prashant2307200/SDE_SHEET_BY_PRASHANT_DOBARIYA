@@ -1,0 +1,26 @@
+int numSubarraysWithSum(vector<int>& nums, int goal) {
+    int n = nums.size() ,sum = 0 ,cnt = 0;
+    unordered_map<int,int> mp;
+    mp[sum]++;
+    for(int i = 0; i < n; ++i){
+        sum += nums[i];
+        cnt += mp[sum - goal];
+        mp[sum]++;
+    }
+    return cnt;
+}
+
+int helper(vector<int>& nums, int goal){
+    int n = nums.size(), count = 0, i = 0, j = 0, sum = 0;
+    while(j < n){
+        sum += nums[j];
+        while(sum > goal)
+            sum -= nums[i++];
+        count += j - i + 1;
+        j++;
+    }
+    return count;
+}
+int numSubarraysWithSum(vector<int>& nums, int goal) {
+    return helper(nums,goal) - helper(nums,goal - 1);
+}

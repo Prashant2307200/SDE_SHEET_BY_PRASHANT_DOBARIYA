@@ -1,0 +1,21 @@
+class Solution {
+    vector<int> genRow(int n){
+        vector<int> row;
+        int ans = 1;
+        row.push_back(ans);
+        for(int j = 1; j < n; ++j){
+            ans *= (n-j);
+            ans /= j;
+            row.push_back(ans);
+        }
+        return row;
+    }
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> triangle;
+        for(int i = 0; i < numRows; ++i)
+            triangle.push_back(genRow(i+1));
+        return triangle;
+    }
+};
+ 

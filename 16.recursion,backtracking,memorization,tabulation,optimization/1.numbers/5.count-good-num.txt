@@ -1,0 +1,20 @@
+long long powfunc(long long a, long long b, long long m){
+    if(b == 0){
+        return 1;
+    }
+    long long rop = powfunc(a,b/2,m);
+    if(b&1){
+        return (a*(rop*rop)%m)%m;
+    }else{
+        return (rop*rop)%m;
+    }
+}
+
+int countGoodNumbers(long long n) {
+   long long mod = 1e9+7;
+   long long odd = n/2 ; 
+   long long even = n-odd; 
+   long long MUL_odd = powfunc(4,odd,mod) ; 
+   long long MUL_even= powfunc(5,even,mod);  
+   return (MUL_odd * MUL_even) % mod  ;
+}

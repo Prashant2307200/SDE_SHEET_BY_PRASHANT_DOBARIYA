@@ -1,0 +1,18 @@
+    bool lemonadeChange(vector<int>& bills) {
+        int fiveDollar, tenDollar, fifteenDollar;
+        fiveDollar = tenDollar = fifteenDollar = 0;
+        int n = bills.size();
+        for(int i = 0; i < n; ++i){
+            if(bills[i] == 5)
+                fiveDollar++;
+            else if(bills[i] == 10)
+                tenDollar++, fiveDollar--;
+            else if(bills[i] == 20 && tenDollar > 0 && fiveDollar > 0)
+                fifteenDollar++, fiveDollar--, tenDollar--;
+            else
+                fifteenDollar++, fiveDollar -= 3;
+            if(fiveDollar < 0 || tenDollar < 0 || fifteenDollar < 0)
+                return 0;
+        }
+        return 1;
+    }

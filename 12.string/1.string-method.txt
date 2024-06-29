@@ -1,0 +1,18 @@
+    + or .append() 
+    .clear()    
+    .compare() or - 
+    .empty() 
+    .erase(idx,ersch)  
+    str.find(subStr) 
+    .insert(idx,str) 
+    .size() or .length() 
+    .substr(idx,ch) 
+    .stoi() 
+    .to_string() 
+    .toUpper() +32 +'a'-'A' 'A'|(1<<5)    'a'|' ' 'a'^' '
+    .toLower() -32 +'A'-'a' 'a'& ~(1<<5)  'A'&'_' 'A'^' '
+    .isAlnum() 
+    .isAlpha() 
+    .isNumber() 
+    transform(s.begin(), s.end(),s.begin(),::toupper/lower);
+    sort(s.begin(), s.end(),greater<int>());

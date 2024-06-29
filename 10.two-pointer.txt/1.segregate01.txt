@@ -1,0 +1,12 @@
+void segregate0and1(int arr[], int n) {
+    int low = 0 ,high = n-1;
+    while(low <= high){
+        if(arr[low] == 1 && arr[high] == 0)
+            swap(arr[low++],arr[high--]);
+        else if(arr[high] == 1)
+            high--;
+        else
+            low++;
+    }
+    return;
+}

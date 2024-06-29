@@ -1,0 +1,74 @@
+int divAandB(int n,int a,int b){
+    int c1 = n/a;
+    int c2 = n/b;
+    int c3 = n/(a*b);
+    return c1+c2-c3;
+}
+
+lcm = (a*b*c)/__gcd(a,__gcd(b,c));
+a/b = (a/__gcd(a,b))/(b/__gcd(a,b));
+
+int gcd(int a,int b){
+    while(b != 0){
+        int rem = a%b;
+        a = b;
+        b = rem;
+    }
+    return a;
+}
+ 
+vector<string> subsets(string s){
+    int n = s.size();
+    int sz = (1<<n);
+    vector<string> subsets;
+    for(int mask = 0; mask < sz; ++mask){
+        string subset;
+        for(int bit = 0; bit < n; ++bit){
+            if(((mask>>bit)&1) != 0)
+                subset.push_back(s[bit]);
+        }
+        if(subset.size()) subsets.push_back(subset);
+    }
+    return subsets;
+}
+
+bool isVowel(char ch)
+    return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
+
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        cin >> n;
+        string strs[n];
+        for(auto str : strs)
+            cin >> str;
+        unordered_map<string,int> hsh;
+        for(int i = 0; i < n; ++i){
+            set<char> dist_vw;
+            for(auto ch : strs[i]){
+                if(isVowel(ch))
+                    dist_vw.insert(ch);
+            }
+            string vowel_str;
+            for(auto ch : dist_vw)
+                vowel_str.push_back(ch);
+            vector<string> all_subset = subsets(vowel_str);
+            for(auto vowel_subset: all_subset)
+                hsh[vowel_subset]++;
+        }
+        long long ans = 0;
+        for(auto pr : hsh){
+            long long cnt = pr.second;
+            if(cnt < 3)   continue;
+            long long ways = (cnt*(cnt-1)*(cnt-2))/6;
+            int n = pr.first.size();
+            if(n%2 == 0)
+                ans -= ways;
+            else
+                ans += ways;
+        }
+        cout << ans << endl;
+    }
+}

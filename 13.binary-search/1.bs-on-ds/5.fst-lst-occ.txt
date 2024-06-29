@@ -1,0 +1,28 @@
+    int fstLstOcc(int arr[], int n, int x, int sign) {
+        int ans = -1, s = 0, e = n-1;
+        while(s <= e) {
+            int mid = s+e >>1;
+            if(arr[mid] == x) {
+                ans = mid;
+                if(sign)
+                    e = mid-1;
+                else 
+                    s = mid+1;
+            }
+            else if(arr[mid] > x) 
+                e = mid-1;
+            else 
+                s = mid+1;
+        }
+        return ans;
+    }
+public:	
+    
+	int count(int arr[], int n, int x) {
+	    bool sign = 1;
+	    int fstOcc = fstLstOcc(arr, n, x, sign);
+	    int lstOcc = fstLstOcc(arr, n, x, !sign);
+	    if(fstOcc == -1 && lstOcc == -1)
+	        return 0;
+	    return lstOcc - fstOcc + 1;
+	}

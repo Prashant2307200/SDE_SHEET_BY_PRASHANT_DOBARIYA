@@ -1,0 +1,28 @@
+string removeOuterParentheses(string s) {
+    int n = s.size();
+    stack<char> st;
+    string ans;
+    for(auto& brac : s){
+        if(brac == '('){
+            if(!st.empty()){
+                ans += brac;
+            }
+            st.push(brac);
+        }else if(brac == ')'){
+            st.pop();
+            if(!st.empty()){
+                ans += brac;
+            }
+        }
+    }return ans;
+}
+
+string removeOuterParentheses(string s) {
+    string res = "";
+    int openCnt = 0;
+    for(auto& brac : s){
+        if(brac == '(' && openCnt++ > 0) res += brac;
+        else if(brac == ')' && openCnt-- > 1)   res += brac;
+    }
+    return res;
+}

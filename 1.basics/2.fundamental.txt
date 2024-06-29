@@ -1,0 +1,11 @@
+data type and type modifiers
+i/p o/p
+if_else_                5programs
+loop                    3programs
+break and continue      4programs
+switch                  3programs
+operators and order     6programs
+pattern                 10program
+number system           2concepts
+function                5programs
+TC and SC

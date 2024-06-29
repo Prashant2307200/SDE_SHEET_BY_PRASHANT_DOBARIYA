@@ -1,0 +1,14 @@
+int totalFruit(vector<int>& fruits) {
+    int n = fruits.size() ,i = 0 ,j = 0;
+    unordered_map<int,int> hsh;
+    while(j < n){
+        hsh[fruits[j]]++;
+        if(hsh.size() > 2){
+            hsh[fruits[i++]]--;
+            if(!hsh[fruits[i-1]])
+                hsh.erase(fruits[i-1]);
+        }
+        ++j;
+    }
+    return j - i;
+}

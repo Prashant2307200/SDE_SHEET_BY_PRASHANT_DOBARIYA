@@ -1,0 +1,30 @@
+bool checkSubarraySum(vector<int>& nums, int k) {
+    int n = nums.size();
+    for(int i = 0; i < n; ++i){
+        int sum = nums[i];
+        for(int j = i+1; j < n; ++j){
+            sum += nums[j];
+            if(sum%k == 0)
+                return 1;
+        }
+    }
+    return 0;
+}
+
+bool checkSubarraySum(vector<int>& nums, int k) {
+    int n = nums.size();
+    unordered_map<int,int> hsh;
+    int pfxSum = 0;
+    remainderMap[0] = -1;
+    for (int i = 0; i < n; i++) {
+        pfxSum += nums[i];
+        int rem = k == 0 ? pfxSum : pfxSum%k;
+        if (hsh.count(rem)) {
+            if (i-hsh[rem] > 1) 
+                return true;
+        } 
+        else 
+            hsh[rem] = i;
+    }
+    return false;
+}

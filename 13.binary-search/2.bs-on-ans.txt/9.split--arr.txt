@@ -1,0 +1,31 @@
+class Solution {
+    int isFeas(vector<int>& nums,int k,int maxSum){
+        int division = 1,sum = 0,n = nums.size();
+        for(int i = 0; i < n; ++i) {
+            int num = nums[i];
+            if(num > maxSum)
+                return 0;
+            if(sum + num > maxSum) {
+                sum = 0;
+                division++;
+                if(division > k)
+                    break;
+            }
+            sum += num;
+        }
+        return division <= k;
+    }
+public:
+    int splitArray(vector<int>& nums, int k) { 
+        int s = *max_element(nums.begin(),nums.end());
+        int e = accumulate(nums.begin(),nums.end(),0);
+        while(s <= e){
+            int mid = s + (e-s)/2;
+            if(isFeas(nums,k,mid))
+                e = mid - 1;
+            else
+                s = mid + 1;
+        }
+        return s;
+    }
+};

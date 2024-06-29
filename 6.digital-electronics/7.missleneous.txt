@@ -1,0 +1,433 @@
+int getSum(int a, int b) {               
+    return b==0? a:getSum(a^b, (a&b)<<1);
+}
+
+int rangeBitwiseAnd(int l, int r) {
+    int c = 0;
+    while(l != r){
+       l>>=1;
+       r>>=1;
+       c++;
+    }
+    return l<<c;
+}
+
+uint32_t reverseBits(uint32_t n) {
+    uint32_t ans = 0;
+    for(int i = 0; i < 32; ++i)
+        if((n>>i) & 1) ans |= (1<<(31-i));
+    return ans;
+}
+
+uint32_t reverseBits(uint32_t x) {
+    x = ((x & 0xaaaaaaaa) >> 1) | ((x & 0x55555555) << 1);
+    x = ((x & 0xcccccccc) >> 2) | ((x & 0x33333333) << 2);
+    x = ((x & 0xf0f0f0f0) >> 4) | ((x & 0x0f0f0f0f) << 4);
+    x = ((x & 0xff00ff00) >> 8) | ((x & 0x00ff00ff) << 8);
+    x = ((x & 0xffff0000) >> 16) | ((x & 0x0000ffff) << 16);
+    return x;
+}
+
+int majorityElement(vector<int>& nums) {
+    int n = nums.size();
+    for(int i = 0; i < n; ++i){
+        int cnt = 0;
+        for(int j = 0; j < n; ++j){
+            if(nums[i] == nums[j]){
+                cnt++;
+                if(cnt > n/2)
+                    return nums[i];
+            }
+        }
+    }
+    return -1;
+}
+
+int majorityElement(vector<int>& nums) {
+    sort(nums.begin(), nums.end());
+    int n = nums.size();
+    return nums[n/2];
+}
+
+int majorityElement(vector<int>& nums) {
+    unordered_map<int,int> mpp;
+    int n = nums.size();
+    for(auto& num : nums){
+        if(++mpp[num] > n/2)
+            return num;
+    }
+    return -1;
+}
+
+int majorityElement(vector<int>& nums) {
+    int n = nums.size() ,ans = 0;
+    for(int i = 0; i < 32; ++i){
+        int sum = 0;
+        for(int j = 0; j < n; ++j){
+            if((nums[j]>>i)&1)
+                sum++;
+        }
+        if(sum > n/2)
+            ans |= (1<<i);
+    }
+    return ans;
+}
+
+int majorityElement(vector<int>& nums) {
+    int cnd = -1 ,vote = 0 ,n = nums.size();
+    for(int i = 0; i < n; ++i){
+        int num = nums[i];
+        if(vote == 0)
+            cnd = num, vote = 1;
+        else if(cnd == num)
+            vote++;
+        else
+            vote--;
+    }
+    return cnd;
+}
+
+vector<int> majorityElement(vector<int>& nums) {
+    int n = nums.size();
+    int mini = (int)(n/3)+1;
+    int cnd1 = -1 ,cnd2 = -2 ,vt1 = 0 ,vt2 = 0;
+    for(int i = 0; i < n; ++i){
+        int cnd = nums[i];
+        if(vt1 == 0 && cnd2 != cnd)
+            cnd1 = cnd, vt1  = 1;
+        else if(cnd1 == cnd)
+            vt1++;
+        else if(cnd2 == cnd)
+            vt2++;
+        else if(vt2 == 0 && cnd1 != cnd)
+            cnd2 = cnd, vt2  = 1;
+        else if(cnd1 != cnd && cnd2 != cnd)
+            vt1-- ,vt2--;
+        else if(vt1 >= mini && vt2 >= mini)
+            break;
+    }
+    int cnt1 = 0 ,cnt2 = 0;
+    for(int i = 0; i < n; ++i){
+        if(nums[i] == cnd1)
+            cnt1++;
+        else if(nums[i] == cnd2)
+            cnt2++;
+    }
+    if(cnt1 >= mini && cnt2 >= mini){
+        if(cnd1 < cnd2)
+            return {cnd1,cnd2};
+        else
+            return {cnd2,cnd1};
+    }
+    else if(cnt1 >= mini)   return {cnd1};
+    else if(cnt2 >= mini)   return {cnd2};
+    return {};
+}
+
+
+
+int missingNumber(vector<int>& nums) {
+    int n = nums.size();
+    for(int i = 0; i <= n; ++i){
+        bool flag = 0;
+        for(int j = 0; j < n; ++j){
+            if(nums[j] == i){
+                flag = 1;
+                break;
+            }
+        }
+        if(flag == 0)
+            return i;
+    }
+    return -1;
+}
+
+int missingNumber(vector<int>& nums) {
+    sort(nums.begin(),nums.end());
+    int n = nums.size();
+    for(int i = 0; i < n; ++i){
+        if(nums[i] != i)
+            return i;
+    }
+    return n;
+}
+
+int missingNumber(vector<int>& nums) {
+    sort(nums.begin(),nums.end());
+    int n = nums.size();
+    int s = 0 ,e = n-1 ,ans = n;
+    while(s <= e){
+        int mid = (s+e)/2;
+        if(nums[mid] == mid)
+            s = mid+1;
+        else {
+            ans = mid;
+            e = mid-1;
+        }
+    }
+    return ans;
+}
+
+int missingNumber(vector<int>& nums) {
+    int n = nums.size();
+    unordered_map<int,int> mpp;
+    for(auto& num : nums)
+        mpp[num]++;
+    for(int num = 0; num <= n; ++num){
+        if(mpp[num] == 0)
+            return num;
+    }
+    return -1;
+}
+
+int missingNumber(vector<int>& nums) {
+    int n = nums.size();
+    int sn = n*(n+1) / 2;
+    return sn-accumulate(nums.begin(),nums.end(),0);
+}
+
+int missingNumber(vector<int>& nums) {
+    int n = nums.size();
+    int xrN;
+    int xorSum = 0;
+    if(n%4 == 0)
+       xrN = n;
+    else if(n%4 == 1)
+       xrN = 1;
+    else if(n%4 == 2)
+       xrN = n+1;
+    else
+       xrN = 0;
+    for(int i = 0; i < n; ++i)
+       xorSum ^= nums[i];
+    return xorSum^xrN;
+}
+
+int missingNumber(vector<int>& nums) {
+    int xorSum = 0 ,n = nums.size();
+    for(int i = 0; i < n; ++i){
+        xorSum ^= nums[i];
+        xorSum ^= (i+1);
+    }
+    return xorSum;
+}
+
+int missingNumber(vector<int>& nums) {
+    int n = nums.size() ,ans = 0;
+    for(int i = 0; i < 32; ++i){
+        int x = 0 ,y = 0;
+        for(int j = 0; j < n; ++j){
+            if((nums[j]&(1<<i)) != 0)
+                y++;
+            if(((j+1)&(1<<i)) != 0)
+                x++;
+        }
+        if(x > y)
+            ans |= (1<<i);
+    }
+    return ans;
+}
+
+int findDuplicate(vector<int>& nums) {
+    int n = nums.size();
+    for(int i = 0; i < n; ++i){
+        for(int j = i+1; j < n; ++j){
+            if(nums[i] == nums[j])
+                return nums[i];
+        }
+    }
+    return n;
+}
+
+int findDuplicate(vector<int>& nums) {
+    sort(nums.begin(),nums.end());
+    int n = nums.size();
+    for(int i = 1; i < n; ++i){
+        if(nums[i] == nums[i-1])
+            return nums[i];
+    }
+    return n;
+}
+
+int findDuplicate(vector<int>& nums) {
+    int n = nums.size() ,ans = n;
+    int low = 0 ,high = n-1;
+    while(low <= high){
+        int cnt = 0 ,mid = (low+high)/2;
+        for(int i = 0; i < n; ++i){
+            if(nums[i] <= mid)
+                cnt++;
+        }
+        if(cnt <= mid)
+            low = mid+1;
+        else{
+            ans = mid;
+            high = mid-1;
+        }
+    }
+    return ans;
+}
+
+int findDuplicate(vector<int>& nums) {
+    unordered_map<int,int> mpp;
+    int n = nums.size();
+    for(auto& num : nums){
+       if(++mpp[num] == 2)
+           return num;
+    }
+    return n;
+}
+
+int findDuplicate(vector<int>& nums) {
+    unordered_set<int> st;
+    int n = nums.size();
+    for(auto& num : nums){
+        if(st.find(num) != st.end())
+            return num;
+        st.insert(num);
+    }
+    return n;
+}
+
+int findDuplicate(vector<int>& nums) {
+    int n = nums.size() ,ans = 0;
+    for(int i = 0; i < 32; ++i){
+        int x = 0 ,y = 0;
+        for(int j = 0; j < n; ++j){
+            if(nums[j]&(1<<i))
+                x++;
+            if(j&(1<<i)){
+                y++;
+            }
+        }
+        if(x > y)
+            ans |= (1<<i);
+    }
+    return ans;
+}
+
+int findDuplicate(vector<int>& nums) {
+    int slow = nums[0];
+    int fast = nums[0];
+    do{
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+    }while(slow != fast);
+    fast = nums[0];
+    while(slow != fast){
+        slow = nums[slow];
+        fast = nums[fast];
+    }
+    return slow;
+}
+
+int findDuplicate(vector<int>& nums) {
+    int n = nums.size();
+    for(int i = 0; i < n; ++i){
+        int num = nums[i]%n;
+        nums[num] += n;
+        int occ = nums[num]/n;
+        if(occ > 1)
+            return num;
+    }
+    return n;
+}
+
+int findDuplicate(vector<int>& nums) {
+    int n = nums.size();
+    for(int i = 0; i < n;){
+        int num = nums[i];
+        if(num == i+1)
+            i++;
+        else if(num == nums[num-1])
+            return num;
+        else{
+            nums[i] = nums[num-1];
+            nums[num-1] = num;
+        }
+    }
+    return n;
+}
+
+int findDuplicate(vector<int>& nums) {
+    for(auto& num : nums){
+        int idx = abs(num);
+        if(nums[idx] < 0)
+            return idx;
+        nums[idx] = -nums[idx];
+    }
+    return nums.size();
+}
+
+vector<int> findMissingRepeatingNumbers(vector <int> a) {
+    int n = a.size() ,rept = -1 ,miss = -1;
+    for(int i = 1; i <= n; ++i){
+        int cnt = 0;
+        for(int j = 0; j < n; ++j){
+            if(a[j] == i)
+                cnt++;
+        }
+        if(cnt == 0)
+            miss = i;
+        else if(cnt == 2)
+            rept = i;
+        else if (rept != -1 && miss != -1)
+            break;
+    }
+    return { rept, miss };
+}
+
+vector<int> findMissingRepeatingNumbers(vector <int> a) {
+    int n = a.size() ,rept = -1 ,miss = -1;
+    unordered_map<int,int> mpp;
+    for(int i = 0; i < n; ++i)
+        mpp[a[i]]++;
+    for (int i = 1; i <= n; ++i) {
+        if(mpp[i] == 0)
+            miss = i;
+        else if(mpp[i] == 2)
+            rept = i;
+        else if(rept != -1 && miss != -1)
+            break;
+    }
+    return {rept, miss};
+}
+
+vector<int> findMissingRepeatingNumbers(vector<int> a) {
+    long long n = a.size(); 
+    long long SN = (n * (n + 1)) / 2;
+    long long S2N = (n * (n + 1) * (2 * n + 1)) / 6;
+    long long S = 0, S2 = 0;
+    for (int i = 0; i < n; i++) {
+        S += a[i];
+        S2 += (long long)a[i] * (long long)a[i];
+    }
+    long long val1 = S - SN;
+    long long val2 = S2 - S2N; 
+    val2 = val2 / val1;
+    long long x = (val1 + val2) / 2;
+    long long y = x - val1;
+    return {(int)x, (int)y};
+}
+
+vector<int> findMissingRepeatingNumbers(vector<int> a) {
+    int n = a.size();
+    int xr = 0 ,zero = 0 ,one = 0;
+    for (int i = 0; i < n; i++){
+        xr = xr ^ a[i];
+        xr = xr ^ (i + 1);
+    }
+    int rmsb = xr & -xr;
+    for (int i = 0; i < n; i++) {
+        if(a[i] & rmsb) 
+            one ^= a[i];
+        if((i+1)&rmsb)
+            one ^= (i+1);
+    }
+    zero = one^xr;
+    int cnt = 0;
+    for (int i = 0; i < n; i++) 
+        if (a[i] == zero) cnt++;
+    if (cnt == 2) return {zero, one};
+    return {one, zero};
+}

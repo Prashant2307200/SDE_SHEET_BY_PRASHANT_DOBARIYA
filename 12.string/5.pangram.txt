@@ -1,0 +1,14 @@
+bool checkIfPangram(string sentence) {
+    unordered_set<char> s(sentence.begin(),sentence.end());
+    return (s.size() == 26);
+}
+
+bool checkIfPangram(string sentence) {
+    int mask = 0;
+    int n = sentence.size();
+    for(int i = 0; i < n; ++i){
+        int idx = sentence[i] - 'a';
+        if(((mask>>idx)&1) == 0){
+            mask |= (1<<idx);
+        }
+}return (mask == ((1<<26)-1)); 

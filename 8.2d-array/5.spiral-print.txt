@@ -1,0 +1,21 @@
+vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    int rowSt = 0 ,rowEn = matrix.size()-1;
+    int colSt = 0 ,colEn = matrix[0].size()-1;
+    vector<int> ans;
+    while(rowSt <= rowEn && colSt <= colEn){
+        for(int j = colSt; j <= colEn; ++j)
+            ans.push_back(matrix[rowSt][j]);
+        ++rowSt;
+        for(int i = rowSt; i <= rowEn; ++i)
+            ans.push_back(matrix[i][colEn]);
+        --colEn;
+        if(!(rowSt <= rowEn && colSt <= colEn)) break;
+        for(int j = colEn; j >= colSt; --j)
+            ans.push_back(matrix[rowEn][j]);
+        --rowEn;
+        for(int i = rowEn; i >= rowSt; --i)
+            ans.push_back(matrix[i][colSt]);
+        ++colSt;
+    }
+    return ans;
+}

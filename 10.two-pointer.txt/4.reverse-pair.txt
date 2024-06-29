@@ -1,0 +1,62 @@
+int reversePairs(vector<int>& nums) {
+    int n = nums.size() ,cnt = 0;
+    for(int i = 0; i < n; ++i){
+        for(int j = i; j < n; ++j){
+            if(nums[i] > 2*1LL*nums[j])
+                cnt++;
+        }
+    }
+    return cnt;
+}
+
+class Solution {
+    void merge(vector<int>& nums,int s,int mid,int e){
+        int n1 = mid - s + 1;
+        int n2 = e - mid;
+        int a[n1] ,b[n2];
+        for(int i = 0; i < n1; ++i)
+            a[i] = nums[s+i];
+        for(int j = 0; j < n2; ++j)
+            b[j] = nums[mid+1+j];
+        int i = 0 ,j = 0 ,k = s;
+        while(i < n1 || j < n2){
+            if(i < n1 && j < n2){
+                if(a[i] < b[j])
+                    nums[k++] = a[i++];
+                else
+                    nums[k++] = b[j++];
+            }
+            else if(i < n1)
+                nums[k++] = a[i++];
+            else 
+                nums[k++] = b[j++];
+        }
+    }
+    long long rev(vector<int>& nums,int s,int mid,int e){
+        int right = mid+1;
+        long long cnt = 0;
+        for(int i = s; i <= mid; ++i){
+            while(right <= e && nums[i] > (2*1LL*nums[right]))
+                right++;
+            cnt += (right - mid - 1);
+        }
+        return cnt ;
+    }
+    long long mergeSort(vector<int>& nums,int s,int e){
+        long long cnt = 0;
+        if(s < e){
+            int mid = ((s+e)>>1);
+            cnt += mergeSort(nums,s,mid);
+            cnt += mergeSort(nums,mid+1,e);
+            cnt += rev(nums,s,mid,e);
+            merge(nums,s,mid,e);
+        }
+        return cnt ;
+    }
+public:
+    int reversePairs(vector<int>& nums) {
+        int n = nums.size();
+        int s = 0 ,e = n-1;
+        return (int)mergeSort(nums,s,e);
+    }
+};

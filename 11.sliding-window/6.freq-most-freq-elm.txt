@@ -1,0 +1,47 @@
+class Solution {
+    int bSearch(int idx,vector<int>&nums,int k,vector<long long> &prefixSum){
+        int s = 0;
+        int e = idx;
+        int ans = idx;
+        while(s <= e){
+            int mid = ((s+e)>>1);
+            long long cnt = (idx-mid+1);
+            long long sum = cnt*1LL*nums[idx];
+            long long currSum = prefixSum[idx] - prefixSum[mid] + nums[mid];
+            int ops = sum - currSum;
+            if(ops <= k){
+                ans = mid;
+                e = mid-1;
+            }
+            else
+                s = mid+1;
+        }
+        return (idx - ans + 1);
+    }
+public:
+    int maxFrequency(vector<int>& nums, int k) {
+        sort(nums.begin() ,nums.end());
+        int n = nums.size();
+        int res = 1;
+        vector<long long> prefixSum(n,0);
+        prefixSum[0] = nums[0];
+        for(int i = 1; i < n; ++i)
+            prefixSum[i] += prefixSum[i-1] + nums[i];
+        for(int i = 0; i < n; ++i)
+            res = max(res,bSearch(i,nums,k,prefixSum));
+        return res;
+    }
+};
+
+int maxFrequency(vector<int>& nums, int k) {
+    sort(nums.begin(),nums.end());
+    int n = nums.size() ,maxi = 0;
+    long long preSum = 0;
+    for(int i = 0 ,j = 0; i < n; ++i){
+        preSum += nums[i];
+        if(((i-j+1)*1LL*nums[i])-preSum > k)
+            preSum -= nums[j++];
+        maxi = max(maxi,i-j+1);
+    }
+    return maxi;
+}

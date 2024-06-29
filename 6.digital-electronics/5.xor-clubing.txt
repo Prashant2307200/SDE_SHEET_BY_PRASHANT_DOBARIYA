@@ -1,0 +1,12 @@
+vector<int> singleNumber(vector<int>& nums) {
+    int xorSum = 0;
+    for(auto& num : nums)
+        xorSum ^= num ;
+    int num1 = 0;
+    int rmsb = xorSum & ~(xorSum-1LL);
+    for(auto& num : nums){
+        if(num&rmsb)
+            num1 ^= num;
+    }
+    return {num1,(num1^xorSum)};
+}

@@ -1,0 +1,63 @@
+bool isPrime(int n){
+    for(int div = 2; div*div <= n; ++div){
+        if(n%div == 0)
+            return 0;
+    }
+    return 1;
+}
+
+vector<bool> isPrime(n,1);
+isPrime[0] = isPrime[1] = 0;
+for(int i = 2; i < n; ++i){
+    if(isPrime[i] == 1){
+        for(int j = 2*i; j < n; j += i)
+            isPrime[j] = 0;
+    }
+}
+
+vector<bool> isPrime(n,1);
+vector<int> lp(n);
+vector<int> hp(n);
+for(int i = 2; i < n; ++i){
+    lp[i] = hp[i] = i;
+    if(isPrime[i] == 1){
+        for(int j = 2*i; j < n; j += i){
+            if(isPrime[j] == 1)
+                lp[j] = i;
+            isPrime[j] = 0;
+            hp[j] = i;
+        }
+    }
+}
+while(n){
+    cout << lp[n] << " ";
+    n /= lp[n];
+}
+
+vector<vector<int>> divsVec(n);
+divsVec[0] = 0;
+divsVec[1] = 1;
+int sum = 0 ,cnt = 0;
+for(int i = 2; i < n; ++i){
+    for(int j = i; j < n; j += i){
+        divsVec[j].push_back(i);
+        sum += j;
+        cnt++;
+    }
+}
+
+int sum = 0 ,cnt = 0;
+for(int i = 1; i <= sqrt(n); ++i){
+    if(n/i == i) {
+        cnt++;
+        sum += i;
+    }
+    else {
+        cnt += 2;
+        sum += (i + n/i);
+    }
+}
+
+int sum = 0;
+for(int i = 1; i*i <= n; ++i)
+    sum += i*(n/i)*2;

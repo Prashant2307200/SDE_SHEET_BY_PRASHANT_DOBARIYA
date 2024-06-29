@@ -1,0 +1,21 @@
+int decimalToOctal(int n){
+    int ans = 0 ,x = 1;
+    while(n){
+        int lastDigit = n%8;
+        ans += lastDigit*x;
+        n /= 8;
+        x *= 10;
+    }
+    return ans;
+}
+
+int octalToDecimal(int n){
+    int ans = 0 ,x = 1;
+    while(n){
+        int lastDigit = n%10;
+        ans += lastDigit*x;
+        n /= 10;
+        x *= 8;
+    }
+    return ans;
+}

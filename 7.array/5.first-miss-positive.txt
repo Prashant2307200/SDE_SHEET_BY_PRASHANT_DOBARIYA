@@ -1,0 +1,14 @@
+int firstMissingPositive(vector<int>& nums) {
+    unordered_set<int> hsh;
+    int n = nums.size();
+    for(int i = 0; i < n; ++i){
+        if(nums[i] > 0)
+            hsh.insert(nums[i]);
+    }
+    int x = 1;
+    while(1){
+        if(hsh.find(x) == hsh.end()) return x;
+        x++;
+    }
+    return -1;
+}

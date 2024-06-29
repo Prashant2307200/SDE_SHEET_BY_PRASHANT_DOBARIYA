@@ -1,0 +1,7 @@
+int countSquares(int row, int column){
+    int topLeft = min(row-1,column-1);
+    int bottomRight = min(8-row,8-column);
+    int topRight = min(row-1,8-column);
+    int bottomLeft = min(8-row,column-1);
+    return (topLeft + topRight + bottomRight + bottomLeft);
+}

@@ -1,0 +1,24 @@
+bool isFeas(vector<int> &stalls,int cowsCnt,int minDist){
+    int cnt = 1 ,pos = stalls[0] ,n = stalls.size();
+    for(int i = 1; i < n; ++i){
+        if(stalls[i] - pos >= minDist){
+            cnt++;
+            pos = stalls[i];
+            if(cnt == cowsCnt) break;
+        }
+    }
+    return cnt >= cowsCnt;
+}
+int aggressiveCows(vector<int> &stalls, int k){
+    sort(stalls.begin(),stalls.end());
+    int n = stalls.size();
+    int s = 1 ,e = stalls[n-1]-stalls[0];
+    while(s <= e){
+        int mid = ((s+e)>>1);
+        if(isFeas(stalls,k,mid))
+            s = mid+1;
+        else
+            e = mid-1;
+    }
+    return e;
+}

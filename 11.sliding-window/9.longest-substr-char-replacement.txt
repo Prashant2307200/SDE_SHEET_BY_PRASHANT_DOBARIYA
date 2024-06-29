@@ -1,0 +1,9 @@
+int characterReplacement(string s, int k) {
+    unordered_map<char, int> hsh;
+    int i = 0 ,j = 0, maxf = 0 ,n = s.size();
+    for (; j < n; j++) {
+        maxf = max(maxf,++hsh[s[j]]);
+        if((j - i + 1) - maxf > k)      hsh[s[i++]]--;
+    }
+    return j-i;
+}

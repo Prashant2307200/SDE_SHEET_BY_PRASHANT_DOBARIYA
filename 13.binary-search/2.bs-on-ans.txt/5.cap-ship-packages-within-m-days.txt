@@ -1,0 +1,25 @@
+class Solution {
+    int countShipingDays(vector<int>& weights, int maxCapacity) {
+        int days = 1, capacity = 0;
+        for(auto& weight: weights) {
+            if(capacity + weight > maxCapacity)
+                days++, capacity = 0;
+            capacity += weight;
+        }
+        return days;
+    }
+public:
+    int shipWithinDays(vector<int>& weights, int days) {
+        int low = *max_element(weights.begin(), weights.end());
+        int high = accumulate(weights.begin(), weights.end(), 0);
+        while(low <= high) {
+            int mid = (low + high)>>1;
+            int totalDays = countShipingDays(weights, mid);
+            if(totalDays <= days)
+                high = mid-1;
+            else
+                low = mid+1;
+        }
+        return low;
+    }
+};

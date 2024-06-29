@@ -1,0 +1,25 @@
+int maxDepth(string s) {
+    int n = s.size() ,maxi = 0;
+    stack<char> st;
+    for(auto& brac : s){
+        if(brac == '('){
+            st.push(brac);
+            if(maxi < st.size()){
+                maxi = st.size();
+            }
+        }else if(brac == ')'){
+            st.pop();
+        }
+    }return maxi;
+}
+
+int maxDepth(string s) {
+    int n = s.size() ,open = 0 ,maxi = 0;
+    for(auto& ch : s){
+        if(ch == '('){
+            open++;
+        }else if(ch == ')'){
+            maxi = max(maxi,open--);
+        }
+    }return maxi;
+} 

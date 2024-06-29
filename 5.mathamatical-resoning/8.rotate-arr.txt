@@ -1,0 +1,37 @@
+void rotate(vector<int>& nums, int k) {
+    int n = nums.size();
+    k %= n;
+    for(int i = 0; i < k; ++i) {
+        for(int j = n-1; j > 0; --j)
+            swap(nums[j],nums[j-1]);
+    }
+}
+
+void rotate(vector<int>& nums, int k) {
+    int n = nums.size();
+    k %= n;
+    vector<int> ans(n,-1);
+    for(int i = 0; i < n-k; ++i)
+        ans[k+i] = nums[i];
+    for(int i = 0; i < k; ++i)
+        ans[i] = nums[n-k+i];
+    nums = ans;
+}
+
+void rotate(vector<int>& nums, int k) {
+    int n = nums.size();
+    vector<int> ans(n);
+    for(int i = 0; i < n; ++i)
+        ans[(i+k+n)%n] = nums[i];
+    nums = ans;
+}
+
+void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        if(n == 1)
+            return;
+        k %= n;
+        reverse(nums.begin(),nums.end()-k);
+        reverse(nums.end()-k,nums.end());
+        reverse(nums.begin(),nums.end());
+}

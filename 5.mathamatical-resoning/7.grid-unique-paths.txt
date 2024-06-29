@@ -1,0 +1,32 @@
+class Solution {
+    int solve(int m,int n,int i,int j){
+        if(i == m-1 && j == n-1)
+            return 1;
+        if(i >= m || j >= n)
+            return 0; 
+        return solve(m,n,i+1,j,dp) + solve(m,n,i,j+1,dp);
+    }
+public:
+    int uniquePaths(int m, int n) {
+        int i = 0 ,j = 0; 
+        return solve(m,n,i,j);
+    }
+};
+
+
+class Solution {
+    int cnt(int m,int n){
+        int total = m+n-2;
+        int alt = m-1;
+        double ans = 1;
+        for(int i = 1; i <= alt; ++i){
+            ans *= (total - alt + i);
+            ans /= i;
+        }
+        return (int)ans;    
+    }
+public:
+    int uniquePaths(int m, int n) {
+        return cnt(m,n);
+    }
+};

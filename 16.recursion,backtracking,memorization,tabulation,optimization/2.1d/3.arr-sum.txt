@@ -1,0 +1,4 @@
+int sumArr(int n,vector<int>& v){
+    if(n == 1)  return v[0];
+    return sumArr(n-1, v) + v[n-1];
+}

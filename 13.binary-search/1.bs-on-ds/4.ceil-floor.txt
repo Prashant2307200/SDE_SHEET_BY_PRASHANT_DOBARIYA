@@ -1,0 +1,20 @@
+pair<int, int> getFloorAndCeil(vector<int> &a, int n, int x) {
+    int s = 0 ,e = n-1 ,ansFloor = -1 ,ansCeil = -1;
+    while(s <= e) {
+        int mid = s+e >>1;
+        if(a[mid] == x) {
+          ansCeil = mid;
+          ansFloor = mid;
+          break;
+        }
+        else if(a[mid] > x) {
+            ansFloor = mid;
+            e = mid-1;
+        }
+        else {
+            ansCeil = mid;
+            s = mid+1;
+        }
+    }
+    return { ansCeil == -1?-1:a[ansCeil],ansFloor == -1?-1:a[ansFloor] };
+}

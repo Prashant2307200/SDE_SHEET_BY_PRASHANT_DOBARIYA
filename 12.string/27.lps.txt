@@ -1,0 +1,58 @@
+int p = 31;
+const int N = 1e5+3 ,m = 1e9+7;
+long long pows[N];
+
+class Solution {
+public:
+    string longestPrefix(string s) {
+        
+        pows[0] = 1;
+        for(int i = 1; i < N; ++i){
+            pows[i] = (pows[i-1]*p)%m;
+        }
+
+        int n = s.size();
+        long long h_p = 0 ,h_s = 0;
+        int j = 0 ,i;
+        for(i = 0; i < n-1; ++i){
+            if(h_p == h_s)  break;
+            h_p = (h_p + (s[i]-'a'+1)*pows[n-1-i])%m;
+            h_s = (h_s + (s[n-1-i]-'a'+1)*pows[i])%m;
+        }return s.substr(0,i);
+
+    }
+};
+
+
+vector<int> lps(string s){
+    int n = s.size();
+    vector<int> pfx(n,0);
+    for(int i = 1; i < n; ++i){
+        int j = pfx[i-1];
+        while(j > 0 && s[i] != s[j]){
+            j = pfx[j-1];
+        }
+        if(s[i] == s[j]){
+            j++;
+        }
+        pfx[i] = j;
+    }
+    return pfx;
+} 
+
+
+string longestPrefix(string s) {
+	int n=s.length();
+	vector<int> kmp(n);
+	int i=1,j=0;
+	while(i<n) {
+		if(s[i]==s[j]) {
+			kmp[i++]=++j;
+		}
+		else {
+			if(j) j=kmp[j-1];
+			else i++;
+		}
+	}
+	return s.substr(0,kmp[n-1]);
+}

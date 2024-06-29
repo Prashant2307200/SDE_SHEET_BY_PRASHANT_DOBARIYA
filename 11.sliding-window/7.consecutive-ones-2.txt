@@ -1,0 +1,9 @@
+int longestOnes(vector<int>& nums, int k) {
+    int n = nums.size() ,i = 0 ,j = 0;
+    while(j < n){
+        k -= !nums[j];
+        if(k < 0)   k += !nums[i++];
+        ++j;
+    }
+    return j - i;
+}

@@ -1,0 +1,20 @@
+bool isValid(string s) {
+    int n = s.size();
+    stack<char> st;
+    unordered_map<char,int> prec = {
+        { '(' , 1  } , { ')' , -1 } ,
+        { '{' , 2  } , { '}' , -2 } ,
+        { '[' , 3  } , { ']' , -3 }
+    };
+    for(auto& brac : s){
+        if(prec[brac] > 0){
+            st.push(brac);
+        }else{
+            if(st.empty() || (prec[brac] + prec[st.top()])){
+                return 0;
+            }else{
+                st.pop();
+            }
+        }
+    }return st.empty();
+} 

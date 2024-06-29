@@ -1,0 +1,6 @@
+single ptr
+ptr arithmatic char vs int
+static/indexive prt vs dynamic ptr
+double ptr
+ptr vs reference 
+implementation swap ,increament

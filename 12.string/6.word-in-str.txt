@@ -1,0 +1,31 @@
+void word(string s){
+    int n = s.size(); 
+    string ans;
+    for(int i = 0; i < n; ++i){
+        string word;
+        while(i < n && s[i] != ' '){
+            word += s[i++];
+        }
+        cout << word << endl;
+    }
+}
+
+pair<int,int> longestWord(string s){
+    int n = s.size();
+    int st = 0 ,len = 0 ,maxSt = 0 ,maxLen = 0;
+    for(int i = 0; i < n; ++i){
+        char ch = s[i];
+        if(ch == ' '){
+            st = i+1;
+            len = 0;
+        }
+        else{
+            len++;
+            if(len > maxLen){
+                maxLen = len;
+                maxSt = st;
+            }
+        } 
+    } 
+    return {maxSt,maxLen};
+}

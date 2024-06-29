@@ -1,0 +1,30 @@
+class Solution {
+    int findBloomBuckets(vector<int>& bloomDay, int k, int days) {
+        int bloomBuckets = 0, cnt = 0;
+        for(auto& bloomDays: bloomDay) {
+            if(bloomDays > days)
+                bloomBuckets += cnt/k, cnt = 0;
+            else
+                cnt++;
+        }
+        return bloomBuckets += cnt/k;
+    }
+public:
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        int n = bloomDay.size();
+        long long len = m*1LL*k;
+        if(n < len)
+            return -1;
+        int low = *min_element(bloomDay.begin(), bloomDay.end());
+        int high = *max_element(bloomDay.begin(), bloomDay.end());
+        while(low <= high) {
+            int mid = (low + high)>>1;
+            int bloomBuckets = findBloomBuckets(bloomDay, k, mid);
+            if(bloomBuckets >= m)
+                high = mid-1;
+            else 
+                low = mid+1;
+        }
+        return low;
+    }
+};

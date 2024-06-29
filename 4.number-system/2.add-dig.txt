@@ -1,0 +1,14 @@
+int addDigits(int num) {
+    int n = num;
+    int ans = 0;
+    while(n > 9){
+        while(n){
+            int lastDigit = n%10;
+            ans += lastDigit;
+            n /= 10;
+        }
+        n = ans;
+        ans = 0;
+    }
+    return n;
+} 

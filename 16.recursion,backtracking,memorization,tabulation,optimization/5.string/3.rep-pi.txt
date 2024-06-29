@@ -1,0 +1,10 @@
+void repPi(string s,int n,int i){
+    if(i > n-1)   return;
+    if(i != n-1 && s[i] == 'p' && s[i+1] == 'i'){
+        cout << 3.14;
+        repPi(s,n,i+2);
+    }else{
+        cout << s[i];
+        repPi(s,n,i+1);
+    }
+}

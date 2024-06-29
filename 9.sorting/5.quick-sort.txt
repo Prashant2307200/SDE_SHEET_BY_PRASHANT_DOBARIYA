@@ -1,0 +1,18 @@
+int partitionArray(int nums[], int start, int end) {
+    int pi = nums[end];
+    int slow = start-1;
+    for(int fast = start; fast < end; ++fast){
+        if(nums[fast] < pi)
+            swap(nums[fast],nums[++slow]);
+    }
+    swap(nums[++slow],nums[end]);
+    return slow;
+}
+void quickSort(int input[], int start , int end ) {
+    if (start < end) {
+        int pi = partitionArray(input, start, end);
+        quickSort(input, start, pi - 1);
+        quickSort(input, pi + 1, end);
+    }
+    return;
+}

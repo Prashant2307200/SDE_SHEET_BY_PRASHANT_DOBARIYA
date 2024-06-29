@@ -1,0 +1,24 @@
+class Solution {
+    void f(vector<int>& cnds,int target,int n,int sum,int i,
+    vector<vector<int>>& ans,vector<int>& subset){
+        if(i >= n || sum >= target){
+            if(sum == target)
+                ans.push_back(subset);
+            return;
+        }
+        subset.push_back(cnds[i]);
+        sum += cnds[i];
+        f(cnds,target,n,sum,i,ans,subset);
+        sum -= cnds[i];
+        subset.pop_back();
+        f(cnds,target,n,sum,i+1,ans,subset);
+    }
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        int n = candidates.size();
+        vector<vector<int>> ans;
+        vector<int> subset;
+        f(candidates,target,n,0,0,ans,subset);
+        return ans;
+    }
+};

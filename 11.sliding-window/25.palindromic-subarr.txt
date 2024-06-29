@@ -1,0 +1,14 @@
+int palindromicSubarr(vector<int> arr,int k){
+    int num = 0;
+    for(int i = 0; i < k-1; ++i){
+        num = num*10 + arr[i];
+    } 
+    int n = arr.size();
+    for(int i = k-1; i < n; ++i){
+        num = (num % (int)pow(10,k-1))*10 + arr[i];
+        if(isPalindrome(num)){
+            return i-k+1;
+        }
+    }
+    return -1;
+}

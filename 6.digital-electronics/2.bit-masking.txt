@@ -1,0 +1,106 @@
+int n;
+cin >> n;
+vector<int> mask(n,0);
+for(int i = 0; i < n; ++i){
+    int num_workers;
+    cin >> num_workers;
+    int mask = 0;
+    for(int j = 0; j < num_workers; ++j){
+        int day;
+        cin >> day;
+        mask |= (1 << day);
+    }
+    mask[i] = mask;
+}
+int maxDays = 0 ,worker1 = -1 ,worker2 = -1;
+for(int i = 0; i < n; ++i){
+    for(int j = i+1; j < n; ++j){
+        int intersection = mask[i]&mask[j];
+        int common_days = __builtin_popcount(intersection);
+        if(common_days > maxDays){
+            maxDays = common_days;
+            worker1 = i;
+            worker2 = j;
+        }
+    }
+}
+cout << maxDays << " " << worker1 << " " << worker2 << endl;
+
+
+int c;
+cin >> c;
+int bit_cnt = (int)log2(c)+1;
+int a = 0 ,b = 0;
+vector<int> set_bits;
+for(int i = 0; i < bit_cnt; ++i){
+    if((c>>i)&1 != 0){
+        set_bits.push_back(i);
+    }
+    else{
+        a |= (1 << i);
+        b |= (1 << i);
+    }
+}
+int n = set_bits.size();
+int sz = (1<<n);
+long long ans = 0;
+for(int mask = 0; mask < sz; ++mask){
+    int a_copy = a ,b_copy = b;
+    for(int i = 0; i < n; ++i){
+        if((mask>>i)&1 != 0){
+            a |= (1 << set_bits[i]);
+        }
+        else{
+            b |= (1 << set _bits[i]);
+        }
+    }
+    ans = max(ans,a_copy * 1LL * b_copy);
+}
+cout << ans << endl;
+
+
+vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+    sort(nums.begin(),nums.end());
+    set<vector<int>> subsets;
+    int n = nums.size();
+    int comb = (1<<n);
+    for(int mask = 0; mask < comb; ++mask){
+        vector<int> subset;
+        for(int bit = 0; bit < n; ++bit){
+            if((mask>>bit)&1)
+                subset.push_back(nums[bit]);
+        }
+        subsets.insert(subset);
+    }
+    return vector<vector<int>> (subsets.begin(),subsets.end());
+}
+
+
+int maxProduct(vector<string>& words) {
+    int n = words.size();
+    int len[n] = {0};
+    int masks[n] = {0};
+    int maxi = 0;
+    for(int i = 0; i < n; ++i){
+        int size = words[i].size();
+        len[i] = size;
+    }
+    for(int i = 0; i < n; ++i){
+        string word = words[i];
+        int len = len[i];
+        int mask = 0;
+        for(int j = 0; j < len; ++j){
+            char ch = word[j];
+            mask |= (1<<(ch-'a'));
+        }
+        masks[i] = mask;
+        for(int j = 0; j < i; ++j){
+            if(!(masks[i] & masks[j])){
+                int prod = len[i]*1LL*len[j];
+                if(maxi < prod)
+                    maxi = prod;
+            }
+        }
+    }
+    return maxi;
+}

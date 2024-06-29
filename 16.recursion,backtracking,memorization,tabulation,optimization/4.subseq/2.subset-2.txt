@@ -1,0 +1,22 @@
+class Solution {
+    void f(int i,int n,vector<int>& nums,vector<vector<int>>& ans,vector<int>& subset){
+        if(i == n){
+            ans.push_back(subset);
+            return;
+        } 
+        int next_i = i + 1;
+        while (next_i < n && nums[next_i] == nums[i]) ++next_i;
+        subset.push_back(nums[i]);
+        f(i+1,n,nums,ans,subset);
+        subset.pop_back();
+        f(next_i,n,nums,ans,subset); 
+    }
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) { 
+        sort(nums.begin(),nums.end());
+        vector<vector<int>> ans;
+        vector<int> subset;
+        f(0, nums.size(), nums, ans, subset);
+        return ans;
+    }
+};

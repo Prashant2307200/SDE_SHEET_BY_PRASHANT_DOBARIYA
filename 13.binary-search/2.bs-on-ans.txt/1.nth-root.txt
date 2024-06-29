@@ -1,0 +1,12 @@
+    float powOf(float x,int n) {
+        float s = 0, e = x;
+        float prec = 1e-4;
+        while(e-s > prec) {
+            float mid = s + (e-s)/2;
+            if(exponent(mid,n) <= x)
+                s = mid;
+            else 
+                e = mid;
+        } 
+        return s;
+    }

@@ -1,0 +1,24 @@
+class Solution {
+    int most(vector<int> &nums,int k){
+        if(k == 0){
+            return k;
+        }
+        int n = nums.size() ,i = 0 ,cnt = 0;
+        unordered_map<int,int> hsh; 
+        for(int j = 0; j < n; ++j){
+            hsh[nums[j]]++;
+            while(hsh.size() > k){
+                hsh[nums[i]]--;
+                if(hsh[nums[i]] == 0)
+                    hsh.erase(nums[i]);
+                i++;
+            }
+            cnt += (j-i+1);
+        }
+        return cnt;
+    }
+public:
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+        return most(nums,k) - most(nums,k-1);
+    }
+};

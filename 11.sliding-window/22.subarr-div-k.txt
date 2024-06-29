@@ -1,0 +1,13 @@
+    int subarraysDivByK(vector<int>& nums, int k) {
+        int n = nums.size(), pfxMod = 0, cnt = 0;
+        unordered_map<int,int> mp;
+        mp[pfxMod]++;
+        for(auto& num: nums) {
+            pfxMod += num;
+            pfxMod %= k;
+            if(pfxMod < 0)
+                pfxMod += k;
+            cnt += mp[pfxMod]++;
+        }
+        return cnt;
+    }

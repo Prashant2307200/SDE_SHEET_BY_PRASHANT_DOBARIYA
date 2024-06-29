@@ -1,0 +1,50 @@
+int numberOfInversions(vector<int>&a, int n) {
+    long long inv = 0;
+    for(int i = 0; i < n; ++i){
+        for(int j = i+1; j < n; ++j){
+            if(a[i] > a[j])
+                inv++;
+        }
+    }return inv;
+}
+
+long long cntInv(int s,int mid,int e,vector<int>& arr){
+    long long inv = 0;
+    int n1 = mid-s+1 ,n2 = e-mid;
+    int a[n1] ,b[n2];
+    for(int i = 0; i < n1; ++i)
+        a[i] = arr[s+i];
+    for (int j = 0; j < n2; ++j) 
+        b[j] = arr[mid + 1 + j];
+    int i = 0, j = 0, k = s;
+    while(i < n1 || j < n2){
+        if(i < n1 && j < n2){
+            if(a[i] <= b[j])
+                arr[k++] = a[i++];
+            else{
+                inv += n1-i;
+                arr[k++] = b[j++];
+            }
+        }else if(i < n1)
+            arr[k++] = a[i++];
+        else
+            arr[k++] = b[j++];
+    }
+    return inv;
+}
+
+long long inversion(int s,int e,vector<int>& a) {
+    long long inv = 0;
+    if(s < e){
+        int mid = (s+e)/2;
+        inv += inversion(s,mid,a);
+        inv += inversion(mid+1,e,a);
+        inv += cntInv(s,mid,e,a);
+    }
+    return inv;
+}
+
+int numberOfInversions(vector<int>&a, int n) {
+    int s = 0 ,e = n-1;
+    return inversion(s,e,a);
+}

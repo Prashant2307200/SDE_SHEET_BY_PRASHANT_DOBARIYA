@@ -1,0 +1,97 @@
+STL : 
+
+int cnt = count(v.begin(),v.end(),2);
+auto it = find(v.begin(),v.end(),2); if(it!=v.end()) cout<<*it;
+reverse(v.begin(),v.end()); rand()
+
+do{
+    ans.push_back(nums);
+}while(next_permutation(nums.begin(),nums.end())); 
+//is_permutation(,,,);
+
+it++ : nextIterator ,it+1 : nextLocation
+pair<int, string>p = {2,"hi"}; //arr or vec of pair
+vector<int> v(3, 50); .push_back() .pop_back() // vec of vector<int>() and arr of vec
+swap(v,v2)  sort(v.begin()+2,v.end()-5,myCmp); make reduce array
+
+for(int i=0;i<v.size(); i++) cout<<v[i]<<endl;
+vector<int>::iterator it;
+for(it=v.begin();it!=v.end();it++) cout<<*it<<endl;
+for(auto &val:v) cout<<val<<endl; 
+
+redBlackTree : map<int,string>m; m[3]="abc" or m.insert({3,"abc"}); m[2]++; O(logn)*s.size();
+hashing : unorderd_map<int,string>um; O(1) ,simplest datatype usage
+auto it = m.find(3);  m.erase(3) or m.erase(it) if(it!=m.end()) m.clear();
+set<int>s unordered_set<int>us multiset<int>s .insert() .find() .erase() 
+
+stack : lifo push pop top   empty
+queue : fifo push pop front empty
+dequeue : push_front/back pop_front/back
+priority_queue
+
+auto inc = [&](int x){return x+1}(2);  //2
+all_of(v.begin(),v.end(),[](int x){return x>0;}) none_of() any_of()
+
+int t;
+cin>>t;
+while(t--){
+    int n,k;
+    cin>>n>>k;
+    multiset<long long>bags;
+    for(int i=0;i<n;i++){
+        long long candy_ct;
+        cin>>candy_ct;
+        bags.insert(candy_ct);
+    }
+    long long total_candies = 0;
+    for(int i=0 ;i<k ;i++){
+        auto last_it = --bags.end();
+        long long candy_ct = *last_it;
+        total_candies += candy_ct;
+        bags.erase(last_it);
+        bags.insert(candy_ct/2);
+    }
+    cout<<total_candies<<endl;
+}
+
+map<pair<string,string>,vector<int>>m;
+int n;
+cin>>n;
+for(int i=0;i<n;i++){
+    string fn,ln;
+    int ct;
+    cin>>fn>>ln>>ct;
+    for(int j=0;j<ct;j++){
+        int x;
+        cin>>x;
+        m[{fn,ln}].push_back(x);
+    }
+}
+for(auto &pr:m){
+    auto &full_name = pr.first;
+    auto &list = pr.second;
+    cout<<full_name.first<<" "<<full_name.second<<endl;
+    cout<<list.size()<<endl;
+    for(auto &ele:list){
+        cout<<ele<<" ";
+    }
+    cout<<endl;
+}
+
+map<int,multiset<string>>marks_map;
+int n;
+cin>>n;
+for(int i=0;i<n;i++){
+    int marks;
+    string name;
+    cin>>name>>marks;
+    marks_map[ -1 * marks].insert(name);
+}//auto curr_it= --marks_map.end();
+while(true){
+    auto &students = curr_it->second;
+    int marks = curr_it->first;
+    for(auto &student:students){
+        cout<<student<<" "<< -1 * marks<<endl;
+    }if(curr_it == marks_map.begin()) break;
+    curr_it--;
+}

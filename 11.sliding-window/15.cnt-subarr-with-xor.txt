@@ -1,0 +1,11 @@
+int subarraysWithSumK(vector < int > a, int b) {
+    int n = a.size() ,xr = 0 ,cnt = 0;
+    map<int,int> mp;
+    mp[xr]++;
+    for(int i = 0; i < n; ++i){
+        xr ^= a[i];
+        cnt += mp[xr^b];
+        mp[xr]++;
+    }
+    return cnt;
+}

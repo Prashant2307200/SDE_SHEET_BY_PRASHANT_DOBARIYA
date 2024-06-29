@@ -1,0 +1,14 @@
+    int findFloor(vector<long long> v, long long n, long long x){
+        long long s = 0, e = n-1;
+        while(s <= e) {
+            long long mid = s+e >>1;
+            if(v[mid] <= x)
+                s = mid+1;
+            else
+                e = mid-1;
+        }
+        return e;
+    }
+
+
+    int* ptr = lower_bound(arr.begin(), arr.end(),x);

@@ -1,0 +1,78 @@
+int t;
+cin >> t;
+while(t--){
+    long long form_dollar;
+    cin >> form_dollar;
+    cout << __builtin_popcountll(form_dollar) << endl;
+}
+
+int flipBit(int a,int b) {
+    int n = a^b;
+    int cnt = 0;
+    while(n){
+        n &= (n-1);
+        cnt++;
+    }
+    return cnt;
+}
+
+bool isPowerOfTwo(int n) {
+    return n && !(n & (n-1LL));
+}
+
+bool isPowerOfThree(int n) {
+    if(n==0)
+        return false;
+    else if(n==1)
+        return true;
+    return n%3==0 && isPowerOfThree(n/3);  
+}
+
+bool isPowerOfFour(int n) {
+    return (n && !(n&(n-1LL)) && (n&0x55555555));
+}
+
+bool isPowerOfFour(int n) {
+    if(!n) return n;
+    while(n != 1)
+        if(n%4 != 0){
+            return 0;
+        n /= 4;
+    }
+    return 1;
+}
+
+bool isPowerOfFour(int n) {
+    if (n <= 0) return 0;
+    double exp = log2(n);
+    if (exp != (int)exp) return 0;
+    return ((int)exp%2==0);
+}
+
+vector<int> evenOddBit(int n) {
+    int total_bits = __builtin_popcount(n);
+    int bits = (int)log2(n)+1;
+    int even_bits = 0;
+    for(int i = 0; i < bits; i += 2){
+        if((n>>i)&1)
+            even_bits++;
+    }
+    return {even_bits ,total_bits-even_bits};
+}
+
+vector<int> countBits(int n) {
+    vector<int> ans(1,0);
+    for(int i = 1; i <= n; ++i)
+        ans.push_back(ans[i/2] + i%2);
+    return ans;
+}
+
+int bitsTillN(int n){
+    if(n < 2)   return n;
+    int bits = (int)log2(n)+1;
+    int comb = (1<<(bits-1));
+    int bitsTillMaxi = (bits-1)*((comb)>>1);
+    int rob = n-comb+1;
+    int rop = bitsTillN(rob-1);
+    return bitsTillMaxi + rop + rob;
+}

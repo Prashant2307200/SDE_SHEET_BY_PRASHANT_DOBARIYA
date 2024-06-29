@@ -1,0 +1,36 @@
+bool isNumPerfact(int n){
+    int sum = 1;
+    for(int div = 2; div <= sqrt(n); ++div){
+        if(n%div == 0){
+            if(div == n/div){
+                sum += div;
+            }
+            else{
+                sum += div + n/div;
+            }
+        }
+    }
+    return (n != 1 && sum == n);
+}
+int maxSum(int arr[],int n,int k){
+    if(n < k){
+        return -1;  
+    }
+    int res = 0;
+    for(int i = 0; i < k; ++i){
+        res += arr[i];
+    }
+    int sum = res;
+    for(int i = k; i < n; ++i){
+        sum += arr[i];
+        sum -= arr[i-k];
+        res = max(res,sum);
+    }
+    return res;
+}
+int maxPerfactNums(int arr[],int n,int k){
+    for(int i = 0; i < n; ++i){
+        arr[i] = isNumPerfact(arr[i]); 
+    }
+    return maxSum(arr,n,k);
+}

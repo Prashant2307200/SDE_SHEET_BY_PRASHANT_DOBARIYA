@@ -1,0 +1,103 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int tdArrSum(vector<vector<int>>& arr,int n,int m){
+    if(n < 1 || m < 1)  return 0;
+    if(n == 1 && m == 1)    return arr[0][0];
+    int ros = tdArrSum(arr,n-1,m-1);
+    int vs = tdArrSum(arr,n,m-1);
+    int hs = tdArrSum(arr,n-1,m);
+    return hs+vs-ros+arr[n-1][m-1];
+}
+
+int main(){
+    vector<vector<int>> arr = {
+        {1,1,1},
+        {1,1,1},
+        {1,1,1}
+    };
+    int n = arr.size(),m = arr[0].size();
+    cout << tdArrSum(arr,n,m);
+    return 0;
+}
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int tdArrSum(vector<vector<int>>& arr,int n,int m,vector<vector<int>>& dp){
+    if(n < 1 || m < 1)  return 0;
+    if(n == 1 && m == 1)    return arr[0][0];
+    if(dp[n][m] != -1)  return dp[n][m];
+    int ros = tdArrSum(arr,n-1,m-1,dp);
+    int vs = tdArrSum(arr,n,m-1,dp);
+    int hs = tdArrSum(arr,n-1,m,dp);
+    return dp[n][m] = hs+vs-ros+arr[n-1][m-1];
+}
+
+int main(){
+    vector<vector<int>> arr = {
+        {1,1,1},
+        {1,1,1},
+        {1,1,1}
+    };
+    int n = arr.size(),m = arr[0].size();
+    vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
+    cout << tdArrSum(arr,n,m,dp);
+    return 0;
+}
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    vector<vector<int>> arr = {
+        {1,1,1},
+        {1,1,1},
+        {1,1,1}
+    };
+    int n = arr.size(),m = arr[0].size();
+    vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+    dp[1][1] = 1;
+    for(int i = 1; i <= n; ++i){
+        for(int j = 1; j <= m; ++j){
+            if(i == 1 && j == 1)    continue;
+            int ros = dp[i-1][j-1];
+            int vs = dp[i][j-1];
+            int hs = dp[i-1][j];
+            dp[i][j] = hs+vs-ros+arr[i-1][j-1];
+        }
+    }
+    cout << dp[n][m];
+    return 0;
+}
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    vector<vector<int>> arr = {{1,1,1},{1,1,1},{1,1,1}};
+    int n = arr.size(),m = arr[0].size();
+    vector<vector<int>> dp(2,vector<int>(m+1,0));
+    dp[1][1] = 1;
+    for(int i = 1; i <= n; ++i){
+        for(int j = 1; j <= m; ++j){
+            if(i == 1 && j == 1)    continue;
+            int ros = dp[0][j-1];
+            int vs = dp[1][j-1];
+            int hs = dp[0][j];
+            dp[1][j] = hs+vs-ros+arr[i-1][j-1];
+        }
+        dp[0] = dp[1];
+    }
+    cout << dp[n != 0][m];
+    return 0;
+}

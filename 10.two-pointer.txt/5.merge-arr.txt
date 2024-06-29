@@ -1,0 +1,65 @@
+void mergeTwoSortedArraysWithoutExtraSpace(vector<long long> &a, vector<long long> &b){
+	int n = a.size();
+	int m = b.size();
+	int l = n + m;
+	int c[l] = {0};
+	int i = 0 ,j = 0 ,k = 0;
+	while(i < n || j < m){
+		if(i < n && j < m){
+			if(a[i] < b[j])
+				c[k++] = a[i++];
+			else
+				c[k++] = b[j++];
+		}
+        else if(i < n)
+			c[k++] = a[i++];
+		else if(j < m)
+			c[k++] = b[j++];
+	    else
+			break;
+	}
+    for(int i = 0; i < l; ++i){
+		if(i < n)
+			a[i] = c[i];
+		else
+			b[i - n] = c[i];
+	}
+}
+
+void mergeTwoSortedArraysWithoutExtraSpace(vector<long long> &a, vector<long long> &b){
+	int n = a.size(), m = b.size();
+	int left = n-1, right = 0;
+	while(left >= 0 && right < m){
+		if(a[left] > b[right])
+			swap(a[left--],b[right++]);
+		else
+			break;
+	}
+    sort(a.begin(),a.end());
+	sort(b.begin(),b.end());
+}
+
+
+void swapIfGreater(vector<long long>& arr1,int idx1,vector<long long>& arr2,int idx2){
+	if(arr1[idx1] > arr2[idx2])	swap(arr1[idx1],arr2[idx2]);
+}
+
+void mergeTwoSortedArraysWithoutExtraSpace(vector<long long> &a, vector<long long> &b){
+	int n = a.size() ,m = b.size();
+	int len = n+m;
+	int gap = (len>>1) + (len&1);
+	while(gap){
+		int i = 0 ,j = i + gap;
+		while(j < len){
+			if(j < n)
+				swapIfGreater(a,i,a,j);
+			else if(i >= n)
+				swapIfGreater(b,i-n,b,j-n);
+			else if(i < n && j >= n)
+				swapIfGreater(a,i,b,j-n);
+			i++; j++;
+		}
+        if(gap == 1)	break;
+		gap = (gap>>1) + (gap&1);
+	}
+}

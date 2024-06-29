@@ -1,0 +1,11 @@
+int maxSubArray(vector<int>& nums) {
+    int n = nums.size() ,maxSum = nums[0];
+    vector<int> prefix(n,0);
+    prefix[0] = nums[0];
+    for(int i = 1; i < n; ++i){
+        prefix[i] += nums[i]+prefix[i-1];
+        for(int j = 0; j <= i; ++j)
+            maxSum = max(maxSum,prefix[i]-prefix[j]+nums[j]);
+    }
+    return maxSum;
+}

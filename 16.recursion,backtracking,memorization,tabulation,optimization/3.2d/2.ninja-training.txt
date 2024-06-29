@@ -1,0 +1,51 @@
+    int f(vector<vector<int>>& points, int n, int last, vector<vector<int>>& dp){
+        if(n == 0)  return 0;
+        if(dp[n][last] != -1) return dp[n][last];
+        int maxi = 0;
+        for(int j = 0; j < 3; ++j){
+            if(j == last)   continue;
+            int point = f(points, n-1, j, dp) + points[n-1][j]; 
+            maxi = max(maxi, point);
+        }
+        return dp[n][last] = maxi;
+    }
+    int maximumPoints(vector<vector<int>>& points, int n) {
+        vector<vector<int>> dp(n+1, vector<int>(4));
+        dp[0][0] = 0, dp[0][1] = 0, dp[0][2] = 0, dp[0][3] = 0;
+        for(int day = 1; day <= n; ++day){
+            for(int last = 0; last < 4; ++last){
+                int maxi = 0;
+                for(int task = 0; task < 3; ++task){
+                    if(task == last)   continue;
+                    int point = dp[day-1][task] + points[day-1][task]; 
+                    maxi = max(maxi, point);
+                }
+                dp[day][last] = maxi;
+            }
+        }
+        return dp[n][3];
+    }
+
+
+    int maximumPoints(vector<vector<int>>& points, int n) {
+        vector<vector<int>> dp(2, vector<int>(2));
+        dp[0][0] = 0, dp[0][1] = 0, dp[0][2] = 0, dp[0][3] = 0;
+        for(int day = 1; day <= n; ++day){
+            for(int last = 0; last < 4; ++last){
+                int maxi = 0;
+                for(int task = 0; task < 3; ++task){
+                    if(task == last)   continue;
+                    int point = dp[0][task] + points[day-1][task]; 
+                    maxi = max(maxi, point);
+                }
+                dp[1][last] = maxi;
+            }
+            dp[0] = dp[1];
+        }
+        return dp[n != 0][3];
+    }
+
+
+    
+
+    

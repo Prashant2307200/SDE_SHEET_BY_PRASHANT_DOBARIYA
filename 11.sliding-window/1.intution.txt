@@ -1,0 +1,101 @@
+(^_^)   INTUITION : 
+    monotonicity 
+    subarr 
+    atMost,Max,Exact
+    Counting
+    longest / smallest
+
+
+1. Shrinkable Sliding Window :
+
+
+for(int i = 0; i < n; ++i){
+    for(int j = i; j < n; ++j){
+        // proceed for valid
+    }
+}
+
+for(int i = 0; i < n; ++i){
+    for(int j = i; j < n; ++j){
+        if(invalid()){
+            break;
+        }
+        // proceed
+    }
+}
+
+int i = 0 , j = 0;
+while(j < n){
+    //process
+    while(invalidProcess()){
+        //exclude
+        ++i;
+    }
+    //inclue
+    ++j;
+}
+
+
+1.2 Longest - Non Shrikable :
+
+
+int i = 0 , j = 0;
+while(j < n){
+    //process
+    if(invalidProcess()){
+        //exclude
+        ++i;
+    }
+    //inclue
+    ++j;
+}
+return j-i; 
+
+
+1.3 Smallest : 
+
+
+1.4 Counting :
+
+atMost(k) - atMost(k-1) -> i-j+1
+
+for(int i = 0; i < n; ++i){
+    //prefix
+    //revEngg. 
+    //prefixCnt
+}
+
+
+2.  Constant Sliding Window :
+
+
+2.1
+
+for(int i = 0; i < k; ++i){
+    //form window
+}
+for(int i = k; i < n; ++i){
+    //exclude i-k and include i
+}
+
+
+
+2.2
+
+for(int i = 0; i < k-1; ++i){
+    //form window
+}
+for(int i = k-1; i < n; ++i){
+    //include i and auto exclude i-k
+}
+
+
+2.3
+
+for(int i = 0; i < k; ++i){
+    //form window
+}
+for(int i = 0; i < k; ++i){
+    //exclude k-1-i and include n-1-i;
+}
+

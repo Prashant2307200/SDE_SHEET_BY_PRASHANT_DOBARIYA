@@ -1,0 +1,24 @@
+INTUITION :
+->  union : m1 | m2
+->  intersection : m1 & m2
+->  subtraction : m1 - m2 
+->  hex mask : 0x(8pos)
+->  get : (n>>i)&1 != 0
+->  set : n |= (1<<i)
+->  clear : n &= ~(1<<i)
+->  update : clear + set
+->  toggle : n ^= (1<<i)
+->  copy : x | (y & ((1<<(r-l+1))-1)<<(l-1))
+->  comp(n) : u - n or u & ~n or u = comp(n)|n
+->  clrLMBtilli : n & -(1<<(i+1))
+->  clrRMBtilli : n & (1<<(i+1))-1
+->  rmsb : n & -n  or n& ~n+1 or n& ~(n-1)
+->  unset rmsb : n&(n-1)
+->  NbitsComb : (1<<n) ,maxi : (1<<n)-1
+->  bitsArr : bits[i] = bits[i>>1] + i&1;
+->  xor : till n ,in range ,club ,abstractor ,idx ,oddUnique
+->  bitCntArr for specific nature
+->  visited ,voting ,idx sort to find dup ,floyd's cycle ,modulo cycle
+
+
+

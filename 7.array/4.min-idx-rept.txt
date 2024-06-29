@@ -1,0 +1,14 @@
+const int N = 1e6+2;
+int idx[N];
+int minIdxRept(int arr[],int n){
+    int minIdx = INT_MAX;
+    for(int i = 0; i < N; ++i)
+        idx[i] = -1;
+    for(int i = 0; i < n; ++i){
+        if(idx[a[i]] != -1)
+            minIdx = min(minIdx,idx[a[i]]);
+        else
+            idx[a[i]] = i;
+    }
+    return minIdx == INT_MAX? -1 : minIdx;
+}

@@ -1,0 +1,20 @@
+class Solution {
+    int rob1(vector<int>& nums, int n){
+        int dp0 = 0, dp1 = nums[0], nextDp;
+        for(int houses = 2; houses <= n; ++houses){ 
+            int inc = dp0 + nums[houses-1];
+            int exc = dp1;
+            nextDp = max(inc, exc);
+            dp0 = dp1, dp1 = nextDp;
+        }
+        return dp1;
+    }
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size(); 
+        if(n < 2)  return nums[0];  
+        vector<int> nums1(nums.begin()+1, nums.end());
+        vector<int> nums2(nums.begin(), nums.end()-1);
+        return max(rob1(nums1, n-1), rob1(nums2, n-1));
+    }
+};
