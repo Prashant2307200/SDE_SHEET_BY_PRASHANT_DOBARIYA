@@ -1,0 +1,21 @@
+class node {
+    public:
+    int data;
+    node* next;
+    node* prev;
+    node() {
+        data = -1;
+        next = NULL;
+        prev = NULL;
+    }
+    node(int val) {
+        data = val;
+        next = NULL;
+        prev = NULL;
+    }
+    node(int val, node* n, node* p) {
+        data = val;
+        next = n;
+        prev = p;
+    } 
+};

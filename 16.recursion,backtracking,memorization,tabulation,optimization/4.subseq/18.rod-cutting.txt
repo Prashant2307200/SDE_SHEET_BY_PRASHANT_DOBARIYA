@@ -1,0 +1,21 @@
+    vector<vector<int>> dp;
+    int f(int n, int len, int price[]) {
+        if(!n)
+            return 0;
+        if(dp[n][len] != -1)
+            return dp[n][len];
+        int exc = f(n-1, len, price);
+        if(n > len)
+            return dp[n][len] = exc;
+        int inc = f(n, len-n, price) + price[n-1];
+        return dp[n][len] = max(inc, exc);
+    }
+  public:
+    int cutRod(int price[], int n) {
+        dp = vector<vector<int>> (1, vector<int>(n + 1, 0));
+        for(int i = 1; i <= n; ++i) {
+            for(int j = i; j <= n; ++j) 
+                dp[0][j] = max(dp[0][j], dp[0][j - i] + price[i - 1]);
+        }
+        return dp[0][n];
+    }

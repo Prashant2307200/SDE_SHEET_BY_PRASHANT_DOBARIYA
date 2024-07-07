@@ -3,11 +3,10 @@ long long powfunc(long long a, long long b, long long m){
         return 1;
     }
     long long rop = powfunc(a,b/2,m);
-    if(b&1){
+    if(b&1)
         return (a*(rop*rop)%m)%m;
-    }else{
+    else
         return (rop*rop)%m;
-    }
 }
 
 int countGoodNumbers(long long n) {

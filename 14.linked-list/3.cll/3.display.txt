@@ -1,0 +1,8 @@
+void display(node* &head) {
+    node* temp = head;
+    do {
+        cout << temp -> data << " -> ";
+        temp = temp -> next;
+    } while(temp != head);
+    cout << endl;
+}

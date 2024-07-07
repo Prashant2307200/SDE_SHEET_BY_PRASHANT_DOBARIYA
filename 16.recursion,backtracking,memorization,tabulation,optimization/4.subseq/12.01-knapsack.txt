@@ -1,0 +1,28 @@
+    vector<int> dp;
+    int f(int n, int W, int wt[], int val[]) {
+        if(n == 0) 
+            return 0;
+        if(dp[n][W] != -1)
+            return dp[n][W];
+        int exc = f(n-1, W, wt, val);
+        if(wt[n-1] > W) 
+            return dp[n][W] = exc;
+        int inc = f(n-1, W-wt[n-1], wt, val) + val[n-1];
+        return dp[n][W] = max(inc, exc);
+    }
+    public:
+    int knapSack(int W, int wt[], int val[], int n) { 
+        dp = vector<int> (W+1, 0);
+        for(int i = 1; i <= n; ++i) {
+            for(int j = W; j >= 0; --j) {
+                int exc = dp[j];
+                if(wt[i-1] > j) {
+                    dp[j] = exc;
+                    continue;
+                }
+                int inc = dp[j-wt[i-1]] + val[i-1];
+                dp[j] = max(inc, exc);
+            }
+        }
+        return dp[W];
+    }

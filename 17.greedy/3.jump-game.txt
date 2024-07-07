@@ -3,7 +3,7 @@
         for(int i = 0; i < n; ++i) {
             if(maxReach < i)
                 return 0;
-            maxReach = max(maxReach,nums[i]+i);
+            maxReach = max(maxReach, nums[i]+i);
         }
         return 1;
     }

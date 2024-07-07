@@ -33,3 +33,6 @@ public:
         return ans;
     }
 };
+
+abc => 3p3 = 3! = 6
+

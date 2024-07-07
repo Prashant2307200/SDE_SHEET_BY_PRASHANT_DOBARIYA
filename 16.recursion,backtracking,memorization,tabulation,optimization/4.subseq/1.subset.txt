@@ -1,21 +1,55 @@
 class Solution {
-    void f(vector<int>& nums,vector<vector<int>>& ans,int i,int n,vector<int>& subset){
-        if(i == n){
+    vector<vector<int>> ans;
+    vector<int> subset;
+    void f(int idx, int n, vector<int>& nums) {
+        if(idx >= n) {
             ans.push_back(subset);
             return;
         }
-        f(nums,ans,i+1,n,subset);
-        subset.push_back(nums[i]);
-        f(nums,ans,i+1,n,subset);
+        subset.push_back(nums[idx]);
+        f(idx+1, n, nums);
         subset.pop_back();
+        f(idx+1, n, nums);
     }
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
-        int n = nums.size();
-        vector<vector<int>> ans;
-        vector<int> subset;
-        f(nums,ans,0,n,subset);
+        f(0,nums.size(),nums);
         return ans;
     }
 };
- 
+
+
+class Solution {
+    vector<vector<int>> ans;
+    vector<int> subset;
+    void f(int idx, int n, vector<int>& nums) {
+        ans.push_back(subset);
+        for(int i = idx; i < n; ++i) {
+            subset.push_back(nums[i]);
+            f(i+1, n, nums);
+            subset.pop_back();
+        }
+    }
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        f(0,nums.size(),nums);
+        return ans;
+    }
+};
+
+
+vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> result = {{}}; 
+    for (int num : nums) {
+        int size = result.size();
+        for (int i = 0; i < size; i++) {
+            vector<int> subset = result[i];
+            subset.push_back(num);
+            result.push_back(subset);
+        }
+    }
+    return result;
+}
+
+a
+b

@@ -44,22 +44,25 @@ int divide(int dividend, int divisor) {
 }
 
 int divide(int dividend, int divisor) {
-    if(divisor == 1) 
+    if (divisor == 1)
         return dividend;
-    else if(divisor == -1 && dividend == INT_MIN)
-        return INT_MAX;
-    long dvd = abs(dividend), dvs = abs(divisor), ans = 0;
-    int sign = dividend > 0 ^ divisor > 0 ? -1 : 1;
+    if (divisor == -1) 
+        return dividend == INT_MIN ? INT_MAX : -dividend;
+    int sign = (dividend > 0) ^ (divisor > 0) ? -1 : 1;
+    long long dvd = abs((long long)dividend);
+    long long dvs = abs((long long)divisor);
+    long long res = 0;
     while (dvd >= dvs) {
-        long temp = dvs, m = 1;
-        while (temp<<1 <= dvd) {
-            m <<= 1;
-            temp <<= 1;
+        long long tempDvs = dvs, multiple = 1;
+        while (dvd >= (tempDvs << 1)) {
+            tempDvs <<= 1;
+            multiple <<= 1;
         }
-        dvd -= temp;
-        ans += m;
+        dvd -= tempDvs;
+        res += multiple;
     }
-    return sign * ans;
+    res = sign * res;
+    return res > INT_MAX ? INT_MAX : res < INT_MIN ? INT_MIN : (int)res;
 } 
 
 

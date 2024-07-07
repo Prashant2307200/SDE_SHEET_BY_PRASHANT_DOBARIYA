@@ -1,0 +1,9 @@
+int sjf(vector<int>& P) {
+    sort(p.begin(), p.end());
+    int t = 0, wt = 0;
+    for(auto& p: P) {
+        wt += t;
+        t += p;
+    }
+    return wt/n;
+}

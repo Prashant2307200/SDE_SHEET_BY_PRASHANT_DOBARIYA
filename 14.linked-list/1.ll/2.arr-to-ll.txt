@@ -1,0 +1,9 @@
+node* arrToLL(int arr[],int n) {
+    node* head = new node(arr[0]);
+    node* temp = head;
+    for(int i = 1; i < n; ++i) {
+        temp -> next = new node(arr[i]);
+        temp = temp -> next;
+    }
+    return head;
+}

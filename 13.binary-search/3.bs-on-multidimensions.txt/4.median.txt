@@ -1,0 +1,37 @@
+int median(vector<vector<int>> &matrix, int n, int m) {
+    vector<int> v;
+    for(auto& arr : matrix){
+        for(auto& elm : arr)
+            v.push_back(elm);
+    }
+    sort(v.begin(),v.end());
+    return v[(n*m)/2];
+}
+
+int countSmallerThanMid(vector<int> &row, int midian){
+    int low = 0, high = row.size() - 1;
+    while (low <= high){
+        int mid = (l + h) >> 1;
+        if (row[mid] <= midian)
+            low = mid + 1;
+        else
+            high = mid - 1;
+  }
+  return low;
+}
+int findMedian(vector<vector<int>> &A){
+    int low = *min_element(A.begin(),a.end());
+    int high = *max_element(A.begin(),a.end());
+    int n = A.size() ,m = A[0].size();
+    while (low <= high){
+        int mid = (low + high) >> 1;
+        int cnt = 0;
+        for (int i = 0; i < n; i++)
+            cnt += countSmallerThanMid(A[i], mid);
+        if (cnt <= (n * m) / 2)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+    return low;
+}

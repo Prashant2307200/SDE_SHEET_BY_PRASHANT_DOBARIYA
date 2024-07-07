@@ -1,0 +1,23 @@
+class Solution {
+    const int mod = 1e9+7;
+    int findWays(vector<int>& arr, int k) {
+	    int n = arr.size();
+	    vector<int>dp (k+1, 0);
+	    dp[0] = 1;
+	    for(int i = 1; i <= n; ++i) {
+		    for(int j = k; j >= arr[i-1]; --j) 
+			    dp[j] = (dp[j] + dp[j-arr[i-1]])%mod;
+	    }
+	    return dp[k];
+    }
+    int countPartitions(int n, int d, vector<int>& arr) {
+        int totalSum = accumulate(arr.begin(), arr.end(), 0);
+        if((totalSum-d) < 0 || (totalSum-d) % 2)
+            return 0;
+        return findWays(arr, (totalSum-d)/2);
+    }
+public:
+    int findTargetSumWays(vector<int>& nums, int target) {
+        return countPartitions(nums.size(), target, nums);
+    }
+};

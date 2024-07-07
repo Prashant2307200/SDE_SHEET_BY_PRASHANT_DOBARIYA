@@ -7,7 +7,3 @@ ListNode* reverseList(ListNode* head) {
     head -> next = NULL;
     return newHead;
 }
-
-1 -> 2 -> 3
-1 -> 2 <- 3 <- newHead
-3 -> 2 -> 1

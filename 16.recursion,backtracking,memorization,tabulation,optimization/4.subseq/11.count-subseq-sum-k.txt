@@ -1,9 +1,13 @@
-int perfectSum(int arr[], int n, int sum) {
-    if (n == 0) return (sum == 0) ? 1 : 0;
-    if(arr[n-1] == 0)   return 2;
-    int inc = 0; 
-    if (arr[n-1] <= sum) 
-        inc = perfectSum(arr, n-1, sum-arr[n-1]);
-    int exc = perfectSum(arr, n-1, sum);
-    return inc + exc;
+const int mod = 1e9+7;
+int findWays(vector<int>& arr, int k) {
+	int n = arr.size();
+	vector<int>dp (k+1, 0);
+	dp[0] = 1;
+	for(int i = 1; i <= n; ++i) {
+		for(int j = k; j >= 0; --j) {
+			if(arr[i-1] <= j)
+				dp[j] = (dp[j] + dp[j-arr[i-1]])%mod;
+		}
+	}
+	return dp[k];
 }

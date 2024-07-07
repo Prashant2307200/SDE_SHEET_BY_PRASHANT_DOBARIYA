@@ -1,0 +1,70 @@
+double minimiseMaxDistance(vector<int> &arr, int k){
+	int n = arr.size();
+	vector<int> isPlace(n-1,0);
+	for(int gasStations = 1; gasStations <= k; ++gasStations){
+		long double maxSecLen = -1;
+		int maxIdx = -1;
+		for(int i = 0; i < n-1; ++i){
+			long double diff = (arr[i+1]-arr[i]);
+			long double secLen = diff/((long double)isPlace[i]+1);
+			if(secLen > maxSecLen){
+				maxSecLen = secLen;
+				maxIdx = i;
+			}
+		}
+        isPlace[maxIdx]++;
+	}
+    long double maxAns = -1;
+	for(int i = 0; i < n-1; ++i){
+		long double diff = arr[i+1]-arr[i];
+		long double secLen = diff/((long double)1+isPlace[i]);
+		maxAns = max(maxAns,secLen);
+	}
+    return maxAns;
+}
+
+double minimiseMaxDistance(vector<int> &arr, int k){
+	int n = arr.size();
+	vector<int> isPlace(n-1,0);
+	priority_queue<pair<long double ,int>> pq;
+	for(int i = 0; i < n-1; ++i)
+		pq.push({ arr[i+1]-arr[i] ,i });
+    for(int gasStations = 1; gasStations <= k; ++gasStations){
+		auto tp = pq.top();
+		pq.pop();
+		int secIdx = tp.second;
+		isPlace[secIdx]++;
+		long double iniDiff = arr[secIdx+1]-arr[secIdx];
+		long double newSecLen = iniDiff/((long double)1+isPlace[secIdx]);
+		pq.push({ newSecLen, secIdx });
+	}
+    return pq.top().first;
+}
+
+int noOfReqGasStation(vector<int> &arr,long double maxDist){
+	int cnt = 0 ,n = arr.size();
+	for(int i = 1; i < n; ++i){
+		int noInBw = (arr[i]-arr[i-1])/maxDist;
+		if((arr[i]-arr[i-1]) == noInBw*maxDist)
+			noInBw--;
+        cnt += noInBw;
+	}
+    return cnt;
+}
+double minimiseMaxDistance(vector<int> &arr, int k){
+	int n = arr.size();
+	long double low = 0 ,high = 0;
+	for(int i = 0; i < n-1; ++i){
+		high = max(high,(long double)arr[i+1]-arr[i]);
+	}
+    long double diff = 1e-6;
+	while(high-low > diff){
+		long double mid = (high+low)/2.0;
+		int cnt = noOfReqGasStation(arr,mid);
+		if(cnt > k)
+			low = mid;
+		else
+			high = mid;
+	}
+    return high;
+}

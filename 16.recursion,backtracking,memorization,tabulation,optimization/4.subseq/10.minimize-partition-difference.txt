@@ -3,8 +3,7 @@ vector<bool> isSubsetSum(vector<int>arr, int sum){
     vector<vector<bool>> dp(2,vector<bool>(sum+1,false));
     dp[0][0] = true;
     for(int i = 1; i <= n; ++i){
-        for(int j = 0; j <= sum; ++j){
-            if(i == 0 && j == 0)    continue;
+        for(int j = 0; j <= sum; ++j){ 
             if(j < arr[i-1]){
                 dp[1][j] = dp[0][j];
                 continue;
@@ -25,3 +24,52 @@ int minSubsetSumDifference(vector<int>& arr, int n){
 	}
 	return mini;
 }
+
+class Solution {
+public:
+    int minimumDifference(vector<int>& nums) {
+        int n = nums.size(), res = 0, sum = 0;
+        sum = accumulate(nums.begin(), nums.end(), 0);
+        
+        int N = n / 2;
+        vector<vector<int>> left(N + 1), right(N + 1);
+        
+        // Store all possible sums for left and right halves
+        for(int mask = 0; mask < (1 << N); ++mask){
+            int sz = 0, l = 0, r = 0;
+            for(int i = 0; i < N; ++i){
+                if(mask & (1 << i)){
+                    sz++;
+                    l += nums[i];
+                    r += nums[i + N];
+                }
+            }
+            left[sz].push_back(l);
+            right[sz].push_back(r);
+        }
+
+        // Sort sums in the right part for binary search
+        for(int sz = 0; sz <= N; ++sz){
+            sort(right[sz].begin(), right[sz].end());
+        }
+
+        // Initialize result with extreme cases
+        res = min(abs(sum - 2 * left[N][0]), abs(sum - 2 * right[N][0]));
+
+        // Iterate over left part sums and use binary search on right part sums
+        for(int sz = 1; sz < N; ++sz){
+            for(auto &a : left[sz]){
+                int b = (sum - 2 * a) / 2, rsz = N - sz;
+                auto &v = right[rsz];
+                auto itr = lower_bound(v.begin(), v.end(), b); // Binary search
+                
+                if(itr != v.end()) res = min(res, abs(sum - 2 * (a + (*itr))));
+                if(itr != v.begin()){
+                    auto it = itr; --it;
+                    res = min(res, abs(sum - 2 * (a + (*it))));
+                }                
+            }
+        }
+        return res;
+    }
+};

@@ -1,0 +1,20 @@
+int kthElement(vector<int> &nums1, vector<int>& nums2, int n1, int n2, int k){
+    if(n1 > n2) 
+        return kthElement(nums2,nums1,n2,n1,k);
+    int low = max(0, k-n2), high = min(k, n1);
+    while(low <= high){
+        int P1 = (low + high)/2;
+        int P2 = k - P1;
+        int x1 = P1 == 0  ? INT_MIN : nums1[P1-1];
+        int x2 = P2 == 0  ? INT_MIN : nums2[P2-1];
+        int x3 = P1 == n1 ? INT_MAX : nums1[P1];
+        int x4 = P2 == n2 ? INT_MAX : nums2[P2];
+        if(x1 <= x4 && x2 <= x3)
+            return max(x1,x2);
+        else if(x1 > x4)
+            high = P1-1;
+        else
+            low = P1+1;
+    }
+    return -1;
+}  

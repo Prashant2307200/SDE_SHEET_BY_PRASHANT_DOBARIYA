@@ -11,7 +11,6 @@ bool isSubsetSum(vector<int>arr, int sum){
     dp[0][0] = 1;
     for(int i = 1; i <= n; ++i){
         for(int j = 0; j <= sum; ++j){
-            if(i == 0 && j == 0)    continue;
             if(j < arr[i-1]){
                 dp[i][j] = dp[i-1][j];
                 continue;
@@ -28,8 +27,7 @@ bool isSubsetSum(vector<int>arr, int sum){
     vector<vector<int>> dp(2,vector<int>(sum+1,0));
     dp[0][0] = 1;
     for(int i = 1; i <= n; ++i){
-        for(int j = 0; j <= sum; ++j){
-            if(i == 0 && j == 0)    continue;
+        for(int j = 0; j <= sum; ++j){ 
             if(j < arr[i-1]){
                 dp[1][j] = dp[0][j];
                 continue;

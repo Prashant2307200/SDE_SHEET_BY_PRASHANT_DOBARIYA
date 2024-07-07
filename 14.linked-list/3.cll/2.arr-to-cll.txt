@@ -1,0 +1,11 @@
+node* arrToCLL(int arr[],int n) {
+    node* head = new node(arr[0]);
+    node* temp = head;
+    for(int i = 1; i < n; ++i) {
+        node* n = new node(arr[i]);
+        temp -> next = n; 
+        temp = temp -> next;
+    }
+    temp -> next = head;
+    return head;
+}

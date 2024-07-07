@@ -5,7 +5,7 @@ ENCAPSULATION : data / information hiding
 ABSTRACTION   : implementation hiding
 INHERITENCE   : mode ,types ,ambiguity
 POLYMORPHISM  : runtime(method overriding,virtual)
-                compiletime(func/op oveerloading)
+                compiletime(func/op overloading)
 
 Complex operator + (Complex const& obj){
     Complex res;
