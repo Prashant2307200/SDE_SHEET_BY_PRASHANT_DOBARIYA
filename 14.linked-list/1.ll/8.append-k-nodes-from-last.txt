@@ -1,0 +1,23 @@
+int len(node* &head) {
+    if(!head)
+        return 0;
+    return 1 + len(head -> next);
+}
+
+node* kAppend(node* &head, int k) {
+    int n = len(head), len = 1;
+    k %= n;
+    node* newHead;
+    node* newTail;
+    node* temp = head;
+    while(temp -> next) {
+        if(len == n-k)
+            newTail = temp;
+        else if(len == n-k+1)
+            newHead = temp;
+        temp = temp -> next, len++;
+    }
+    newTail -> next = NULL;
+    tail -> next = head;
+    return newHead;
+}

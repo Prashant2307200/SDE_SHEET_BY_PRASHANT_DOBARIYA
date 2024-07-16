@@ -1,0 +1,52 @@
+// stack using array
+#define n 100
+class Stack{
+    int* arr;
+    int Top;
+    public :
+        Stack(){
+            arr = new int[n];
+            Top = -1;
+        }
+        bool empty(){
+            return Top == -1;
+        }
+        void push(int x){
+            if(Top == n-1){
+                cout << "Stack overflow" << endl;
+                return;
+            }
+            arr[++Top] = x;
+        }
+        void pop(){
+            if(empty()){
+                 cout << "Stack underflow" << endl;
+                 return;
+            }
+            Top--;
+        }
+        int top(){
+            if(empty()){
+                cout << "No element in stack" << endl;
+                return -1; 
+            }
+            return arr[Top];
+        }
+};
+
+int main() {
+
+    int arr[] = {1,2,3,4,5};
+    Stack st;
+    
+    for(int i = 0; i < 5; ++i)
+        st.push(arr[i]);
+        
+    while(!st.empty()){
+        cout << st.top() << " ";
+        st.pop();
+    }
+    cout << endl;
+
+    return 0;
+}

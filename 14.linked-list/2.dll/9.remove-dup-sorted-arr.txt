@@ -1,0 +1,18 @@
+Node* removeDuplicates(struct Node *head) {
+    if (!head || !head->next)
+        return head;
+    Node* temp = head;
+    while (temp && temp -> next) {
+        Node* front = temp -> next;
+        while (front && temp -> data == front -> data) {
+            Node* toDel = front;
+            front = front -> next;
+            free(toDel);
+        }
+        temp -> next = front;
+        if (front)
+            front -> prev = temp;
+        temp = temp -> next;
+    }
+    return head;
+}

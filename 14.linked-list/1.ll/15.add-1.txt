@@ -1,0 +1,59 @@
+   Node* reverseList(Node* head) {
+        if(!head || !head -> next)
+            return head;
+        Node* back = NULL;
+        Node* curr = head;
+        while(curr) {
+            Node* front = curr -> next;
+            curr -> next = back;
+            back = curr;
+            curr = front;
+        }
+        return back;
+    }
+    public:
+    Node* addOne(Node *head) {
+        head = reverseList(head);
+        int carry = 1;
+        Node* temp = head;
+        while(temp) {
+            temp -> data += carry;
+            if(temp -> data == 10) 
+                carry = 1;
+            else {
+                carry = 0;
+                break;
+            }
+            temp = temp -> next;
+        }
+        if(carry == 1) {
+            head = reverseList(head);
+            Node* n = new Node(1);
+            n -> next = head;
+            return n;
+        }
+        head = reverseList(head);
+        return head;
+    }
+
+
+    int f(Node *head) {
+        if(!head) 
+            return 1;
+        int carry = f(head -> next);
+        head -> data += carry;
+        if(head -> data != 10) 
+            return 0;
+        head -> data = 0;
+        return 1;
+    }
+    public:
+    Node* addOne(Node *head) {
+        int carry = f(head);
+        if(carry == 1) {
+            Node* n = new Node(1);
+            n -> next = head;
+            head = n;
+        }
+        return head;
+    }

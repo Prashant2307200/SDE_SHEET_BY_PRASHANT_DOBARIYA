@@ -1,0 +1,18 @@
+string postfixToInfix(string s) {
+    stack<string> st;
+    int n = s.size();
+    for(auto& ch : s){
+        if( (ch >= 'A' && ch <= 'Z') || 
+            (ch >= 'a' && ch <= 'z')){
+            st.push(string(1,ch));
+        }else{
+            string op2 = st.top();
+            st.pop();
+            string op1 = st.top();
+            st.pop();
+            string temp='('+op1+ch+op2+')';
+            st.push(temp);
+        }
+    }
+    return st.top();
+} -> reverse + rest

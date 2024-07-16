@@ -1,0 +1,44 @@
+// stack using linked list
+class node{
+public:
+    int data;
+    node* next;
+    node(int x){
+        data = x;
+        next = NULL;
+    }
+};
+
+class Stack{
+    node* Top;
+    public :
+        Stack(){
+            Top = NULL;
+        }
+        bool empty(){
+            return Top == NULL;
+        }
+        void push(int x){
+            node* n = new node(x);
+            if(empty()){
+                Top = n;
+                return ;
+            }
+            n -> next = Top;
+            Top = n;
+        }
+        void pop(){
+            if(empty()){
+                return ;
+            }
+            node* toDel = Top;
+            Top = Top -> next;
+            delete toDel;
+        }
+        int top(){
+            if(empty()){
+                return -1;
+            }
+            return Top -> data;
+        }
+};

@@ -1,0 +1,77 @@
+    int trap(vector<int>& height) {
+        int n = height.size(), water = 0;
+        for(int i = 0; i < n; ++i) {
+            int maxiL = 0, maxiR = 0;
+            for(int j = 0; j < n; ++j) {
+                if(i < j) 
+                    maxiR = max(maxiR, height[j]);
+                else if(i > j)
+                    maxiL = max(maxiL, height[j]);
+            }
+            water += max(0, min(maxiL, maxiR) - height[i]);
+        }
+        return water;
+    }
+
+    
+    int trap(vector<int>& height) {
+        int n = height.size();
+        int maxL = height[0], maxR = height[n-1];
+        vector<int> left(n,0), right(n,0);
+        for(int i = 1; i < n; ++i){
+            left[i] = maxL;
+            right[n-1-i] = maxR;
+            maxL = max(maxL,height[i]);
+            maxR = max(maxR,height[n-1-i]);
+        }
+        int water = 0;
+        for(int i = 1; i < n-1; ++i)
+            water += max(0, min(left[i], right[i]) - height[i]);
+        return water;
+    }
+
+
+    int trap(vector<int>& height) {
+        stack<int> st;
+        int n = height.size() ,ans = 0;
+        for(int i = 0; i < n; ++i){
+            while(!st.empty() && height[st.top()] < height[i]){
+                int cur = st.top();
+                st.pop();
+                if(st.empty())
+                    break;
+                else {
+                    int diff = i - st.top() - 1;
+                    ans += diff * max(0, min(height[st.top()], height[i]) - height[cur]);
+                }
+            }
+            st.push(i);
+        }
+        return ans;
+    }
+
+
+    int trap(vector<int>& height) {
+        int n = height.size();
+        int maxi = height[0] ,idx = 0;
+        for(int i = 1; i < n; ++i){
+            if(maxi < height[i])
+                maxi = height[i], idx = i;
+        }
+        int water = 0;
+        int maxiL = height[0];
+        for(int i = 1; i < idx; ++i){
+            int level = height[i];
+            int unit = maxiL - level;
+            water += max(0, unit);
+            maxiL = max(maxiL, level);
+        }
+        int maxiR = height[n-1];
+        for(int i = n-2 ;i > idx; --i){
+            int level = height[i];
+            int unit = maxiR - height[i];
+            water = max(0, unit);
+            maxiR = max(maxiR, level);
+        }
+        return water;
+    }

@@ -1,0 +1,30 @@
+double evaluatePrefix(string exprsn){
+    stack<double> Stack;
+    int n = exprsn.size();
+    for (int j = n - 1; j >= 0; j--) {
+        char ch = exprsn[j];
+        if (isdigit(ch))
+            Stack.push(ch - '0');
+        else {
+            double o1 = Stack.top();
+            Stack.pop();
+            double o2 = Stack.top();
+            Stack.pop();
+            switch (ch) {
+            case '+':
+                Stack.push(o1 + o2);
+                break;
+            case '-':
+                Stack.push(o1 - o2);
+                break;
+            case '*':
+                Stack.push(o1 * o2);
+                break;
+            case '/':
+                Stack.push(o1 / o2);
+                break;
+            }
+        }
+    }
+    return Stack.top();
+}

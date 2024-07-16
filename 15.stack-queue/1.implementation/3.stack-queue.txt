@@ -1,0 +1,73 @@
+// stack using queue
+class Stack{
+    int N;
+    queue<int> q1;
+    queue<int> q2;
+public :
+    Stack(){
+        N = 0;
+    }
+    void push(int x){
+       q2.push(x); 
+       N++;
+       while(!q1.empty()){
+           q2.push(q1.front());
+           q1.pop();
+       }
+       swap(q1,q2);
+    }
+    void pop(){
+        q1.pop();
+        N--;
+    }
+    int top(){
+        return q1.front();
+    }
+    int size(){
+        return N;
+    }
+};
+
+
+class Stack{
+    int N;
+    queue<int> q1;
+    queue<int> q2;
+public :
+    Stack(){
+        N = 0;
+    }
+    void push(int x){
+        N++;
+        q1.push(x);
+    }
+    void pop(){
+        if(q1.empty()){
+            return;
+        }
+        N--;
+        while(q1.size() != 1){
+            q2.push(q1.front());
+            q1.pop(); 
+        }
+        q1.pop();
+        swap(q1,q2);
+    }
+    int top(){
+        if(q1.empty()){
+            return -1;
+        }
+        while(q1.size() != 1){
+            q2.push(q1.front());
+            q1.pop(); 
+        }
+        int ans = q1.front();
+        q1.pop();
+        q2.push(ans);
+        swap(q1,q2);
+        return ans;
+    }
+    int size(){
+        return N;
+    }
+};

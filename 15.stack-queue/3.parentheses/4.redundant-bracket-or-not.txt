@@ -1,0 +1,18 @@
+bool findRedundantBrackets(string &s) {
+    stack<char> st;
+    int isRedundant = 1;
+    for(auto& ch : s){
+        if(ch == '(' || ch == '+' || ch == '-' || ch == '*' || ch == '/')
+            st.push(ch);
+        else if(ch == ')'){
+            if(st.top() == '(')
+                return 1;
+            else {
+                while(st.top() != '(')
+                    st.pop();
+                st.pop();
+            }
+        }
+    }
+    return 0;
+}

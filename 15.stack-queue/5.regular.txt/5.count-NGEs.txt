@@ -1,0 +1,40 @@
+vector<int> countGreater(vector<int>&arr, vector<int>&query) {
+    int m = query.size(), n = arr.size();
+    vector<int> ans(m,-1);
+    for(int i = 0; i < m; ++i){
+        int cnt = 0;
+        int idx = query[i];
+        for(int j = idx+1; j < n; ++j){
+            if(arr[j] > arr[idx])
+                cnt++;
+        }
+        ans[i] = cnt;
+    }
+    return ans;
+}
+
+vector<int> countGreater(vector<int>&arr, vector<int>&query) {
+    stack<int> st2, st1;
+    int count = 0;
+    int n = arr.size();
+    vector<int> ans(n);
+    for(int i = n-1; i >= 0; i--){
+        count = 0;
+        while(!st1.empty() ){
+            if(arr[i] < st1.top())
+                count++;
+            st2.push(st1.top());
+            st1.pop();
+        }
+        ans[i] = count;
+        st1.push(arr[i]);
+        while(!st2.empty()){
+            st1.push(st2.top());
+            st2.pop();
+        }
+   }
+    vector<int> ok(query.size());
+    for(int i = 0; i < query.size(); i++)
+        ok[i]= ans[query[i]];
+    return ok;
+}

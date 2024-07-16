@@ -1,0 +1,99 @@
+class Solution {
+    bool f(string s, int idx, int n, int open) {
+        if(open < 0)
+            return 0;
+        if(idx >= n)
+            return open == 0;
+        if(s[idx] == '(')
+            return f(s, idx + 1, n, open + 1); 
+        if(s[idx] == ')')
+            return f(s, idx + 1, n, open - 1);
+        bool empty = f(s, idx + 1, n, open);
+        bool openBrac = f(s, idx + 1, n, open + 1);
+        bool closeBrac = f(s, idx + 1, n, open - 1);
+        return openBrac | closeBrac | empty;
+    }
+public:
+    bool checkValidString(string s) {
+        return f(s, 0, s.size(), 0);
+    }
+};
+
+
+class Solution {
+    vector<vector<int>> dp;
+    bool f(string s, int idx, int n, int open) {
+        if(open < 0)
+            return 0;
+        if(idx >= n)
+            return open == 0;
+        if(dp[idx][open] != -1)
+            return dp[idx][open];
+        if(s[idx] == '(')
+            return dp[idx][open] = f(s, idx + 1, n, open + 1); 
+        if(s[idx] == ')')
+            return dp[idx][open] = f(s, idx + 1, n, open - 1);
+        bool empty = f(s, idx + 1, n, open);
+        bool openBrac = f(s, idx + 1, n, open + 1);
+        bool closeBrac = f(s, idx + 1, n, open - 1);
+        return dp[idx][open] = openBrac | closeBrac | empty;
+    }
+public:
+    bool checkValidString(string s) {
+        int n = s.size();
+        dp = vector<vector<int>> (n, vector<int> (n + 1, -1));
+        return f(s, 0, n, 0);
+    }
+};
+
+
+    bool checkValidString(string s) {
+        int n = s.size();
+        vector<vector<int>> dp = vector<vector<int>> (n + 1, vector<int> (n + 1, 0));
+        dp[n][0] = 1;
+        for(int i = n-1; i >= 0; --i) {
+            for(int j = 0; j <= n; ++j) {
+                bool empty = dp[i+1][j];
+                bool close = j ? dp[i+1][j-1] : 0;
+                bool open = j != n ? dp[i+1][j+1] : 0;
+                dp[i][j] = s[i] == '(' ? open : s[i] == ')' ? close : open || close || empty;
+            }
+        }
+        return dp[0][0];
+    }
+
+
+    bool checkValidString(string s) {
+        int n = s.size();
+        vector<vector<int>> dp = vector<vector<int>> (2, vector<int> (n + 1, 0));
+        dp[0][0] = 1;
+        for(int i = n-1; i >= 0; --i) {
+            for(int j = 0; j <= n; ++j) { 
+                bool empty = dp[0][j];
+                bool close = j ? dp[0][j-1] : 0;
+                bool open = j != n ? dp[0][j+1] : 0;
+                dp[1][j] = s[i] == '(' ? open : s[i] == ')' ? close : open || close || empty;
+            }
+            dp[0] = dp[1];
+        }
+        return dp[0][0];
+    }
+
+
+    bool checkValidString(string s) {
+        int mini, maxi;
+        mini = maxi = 0;
+        for(auto& ch: s) {
+            if(ch == '(')
+                mini++, maxi++;
+            else if(ch == ')')
+                mini--, maxi--;
+            else
+                mini--, maxi++;
+            if(maxi < 0)
+                return 0;
+            if(mini < 0)
+                mini = 0;
+        }
+        return !mini;
+    }

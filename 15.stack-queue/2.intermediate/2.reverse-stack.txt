@@ -1,0 +1,20 @@
+void insertAtBottom(stack<int> &st,int elm){
+    if(st.empty()){
+        st.push(elm);
+        return;
+    }
+    int topElm = st.top();
+    st.pop();
+    insertAtBottom(st,elm);
+    st.push(topElm);
+}
+
+void reverseStack(stack<int> &stack){
+    if(stack.empty()){
+        return;
+    }
+    int topElm = stack.top();
+    stack.pop();
+    reverseStack(stack);
+    insertAtBottom(stack,topElm);
+}

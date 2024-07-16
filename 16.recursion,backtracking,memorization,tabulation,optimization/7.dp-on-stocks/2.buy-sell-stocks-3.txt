@@ -1,0 +1,93 @@
+class Solution {
+    vector<vector<vector<int>>> dp;
+    int f(vector<int>& prices, int i, int n, bool buy, int limit) {
+        if(i == n)
+            return 0;
+        if(limit == 0)
+            return 0;
+        if(dp[i][buy][limit] != -1)
+            return dp[i][buy][limit];
+        int profit = 0;
+        if(buy) {
+            int inc = -prices[i] + f(prices, i + 1, n, !buy, limit);
+            int exc = f(prices, i + 1, n, buy, limit);
+            profit = max(inc, exc);
+        }
+        else {
+            int inc = prices[i] + f(prices, i + 1, n, !buy, limit-1);
+            int exc = f(prices, i + 1, n, buy, limit);
+            profit = max(inc, exc);
+        }
+        return dp[i][buy][limit] = profit;
+    }
+public:
+    int maxProfit(vector<int>& prices) {
+        bool buy = 1;
+        int limit = 2, n = prices.size();
+        dp = vector<vector<vector<int>>> (n+1, vector<vector<int>> (buy+1, vector<int> (limit+1, -1)));
+        return f(prices, 0, n, buy, limit);
+    }
+};
+
+
+class Solution { 
+public:
+    int maxProfit(vector<int>& prices) {
+        bool buy = 1;
+        int limit = 2, n = prices.size();
+        vector<vector<vector<int>>> dp = vector<vector<vector<int>>> (n+1, vector<vector<int>> (buy+1, vector<int> (limit+1, 0)));
+        for(int i = n-1; i >= 0; --i) {
+            for(int j = 0; j <= buy; ++j) {
+                for(int k = 1; k <= limit; ++k) {
+                    int profit = 0;
+                    if(j) {
+                        int inc = -prices[i] + dp[i+1][!j][k];
+                        int exc = dp[i+1][j][k];
+                        profit = max(inc, exc);
+                    }
+                    else {
+                        int inc = prices[i] + dp[i+1][!j][k-1];
+                        int exc = dp[i+1][j][k];
+                        profit = max(inc, exc);
+                    }
+                    dp[i][j][k] = profit;
+                }
+            }
+        }
+        return dp[0][buy][limit];
+    }
+};
+
+
+class Solution { 
+public:
+    int maxProfit(vector<int>& prices) {
+        bool buy = 1;
+        int limit = 2, n = prices.size();
+        vector<vector<int>> dp0, dp1;
+        dp0 = dp1 = vector<vector<int>> (buy+1, vector<int> (limit+1, 0));
+        for(int i = n-1; i >= 0; --i) {
+            for(int j = 0; j <= buy; ++j) {
+                for(int k = 1; k <= limit; ++k) 
+                    dp1[j][k] = max(dp0[j][k], j?(-prices[i] + dp0[!j][k]):(prices[i] + dp0[!j][k-1]));
+            }
+            dp0 = dp1;
+        }
+        return dp0[buy][limit];
+    }
+};
+
+
+    int maxProfit(vector<int>& prices) {
+        bool buy = 1;
+        int limit = 2, n = prices.size();
+        vector<vector<int>> dp0;
+        dp0 = vector<vector<int>> (buy+1, vector<int> (limit+1, 0));
+        for(int i = n-1; i >= 0; --i) {
+            for(int j = 0; j <= buy; ++j) {
+                for(int k = limit; k >= 1; --k) 
+                    dp0[j][k] = max(dp0[j][k], j?(-prices[i] + dp0[!j][k]):(prices[i] + dp0[!j][k-1]));
+            }
+        }
+        return dp0[buy][limit];
+    }

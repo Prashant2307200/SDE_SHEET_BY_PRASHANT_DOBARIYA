@@ -1,0 +1,13 @@
+reverse(exp.begin(),exp.end());
+string newExp = "";
+for(auto& ch : exp){
+    if(ch == '('){
+        newExp += ')';
+    }else if(ch == ')'){
+        newExp += '(';
+    }else{
+        newExp += ch;
+    }
+}
+string ans = infixToPostfix(newExp);
+reverse(ans.begin(),ans.end());

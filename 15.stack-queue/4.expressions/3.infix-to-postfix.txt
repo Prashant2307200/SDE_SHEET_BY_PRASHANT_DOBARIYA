@@ -1,0 +1,50 @@
+int prec(char ch){
+	if(ch == '^'){
+		return 3;
+	}
+	else if(ch == '*' || ch == '/'){
+		return 2;
+	}
+	else if(ch == '+' || ch == '-'){
+		return 1;
+	}
+	else{
+		return -1;
+	}
+}
+string infixToPostfix(string exp){
+	stack<char> st;
+	string res = "";
+	for(auto& ch : exp){
+		if(	(ch >= '0' && ch <= '9') || 
+			(ch >= 'a' && ch <= 'z') || 
+			(ch >= 'A' && ch <= 'Z')
+			){
+			res += ch;
+		}
+		else if(ch == '('){
+			st.push(ch);
+		}
+		else if(ch == ')'){
+			while(!st.empty() && st.top() != '('){
+				res += st.top();
+				st.pop();
+			}
+			if(!st.empty()){
+				st.pop();
+			}
+		}
+		else{
+			while(!st.empty() && prec(st.top()) >= prec(ch)){
+				res += st.top();
+				st.pop();
+			}
+			st.push(ch);
+		}
+	}
+	while(!st.empty()){
+		res += st.top();
+		st.pop();
+	}
+	return res;
+}

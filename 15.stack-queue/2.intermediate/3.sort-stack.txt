@@ -1,0 +1,20 @@
+void sortedInsert(stack<int> &s,int num){
+	if(s.empty() || s.top() < num){
+		s.push(num);
+		return;
+	}
+	int topElm = s.top();
+	s.pop();
+	sortedInsert(s,num);
+	s.push(topElm);
+}
+
+void sortStack(stack<int> &s){
+	if(s.empty()){
+		return;
+	}
+	int num = s.top();
+	s.pop();
+	sortStack(s);
+	sortedInsert(s,num);
+}

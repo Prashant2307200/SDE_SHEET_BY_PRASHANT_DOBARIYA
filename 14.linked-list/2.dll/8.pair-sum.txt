@@ -1,0 +1,49 @@
+    vector<pair<int, int>> findPairsWithGivenSum(Node *head, int target) {
+        if(!head || !head -> next)
+            return {{}};
+        vector<pair<int, int>> ans;
+        for(Node* i = head; i; i = i -> next) {
+            for(Node* j = i -> next; j; j = j -> next) {
+                if(i -> data + j -> data == target) 
+                    ans.push_back({i -> data, j -> data});
+            }
+        }
+        return ans;
+    }
+
+
+vector<pair<int, int>> findPairsWithGivenSum(Node *head, int target) {
+    vector<pair<int, int>> ans;
+    unordered_map<int, int> map;
+    for (Node* i = head; i; i = i->next) {
+        int rem = target - i -> data;
+        if (map[rem] > 0) {
+            ans.push_back({rem, i->data});
+            map[rem]--;
+        } 
+        else 
+            map[i -> data]++; 
+    }
+    sort(ans.begin(), ans.end());
+    return ans;
+}
+
+
+    vector<pair<int, int>> findPairsWithGivenSum(Node *head, int target) {
+        vector<pair<int, int>> ans;
+        Node* curr = head;
+        Node* end = head;
+        while(end -> next)
+            end = end -> next;
+        while(curr != end && end -> next != curr){
+            int temp = curr -> data + end -> data;
+            if(temp == target){
+                ans.push_back({curr -> data, end -> data});
+                curr = curr -> next;
+                end = end -> prev;
+            }
+            else if(temp < target) curr=curr -> next;
+            else end = end -> prev;
+        }
+        return ans;
+    }

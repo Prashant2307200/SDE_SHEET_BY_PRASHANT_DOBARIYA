@@ -1,0 +1,103 @@
+class Solution {
+    int f(vector<int>& prices, int i, int n, bool buy) {
+        if(i == n)
+            return 0;
+        int profit = 0;
+        if(buy) {
+            int inc = -prices[i] + f(prices, i + 1, n, !buy);
+            int exc = f(prices, i + 1, n, buy);
+            profit = max(inc, exc);
+        }
+        else {
+            int inc = prices[i] + f(prices, i + 1, n, !buy);
+            int exc = f(prices, i + 1, n, buy);
+            profit = max(inc, exc);
+        }
+        return profit;
+    }
+public:
+    int maxProfit(vector<int>& prices) {
+        bool buy = 1;
+        return f(prices, 0, prices.size(), buy);
+    }
+};
+
+
+class Solution {
+    vector<vector<int>> dp;
+    int f(vector<int>& prices, int i, int n, bool buy) {
+        if(i == n)
+            return 0;
+        if(dp[i][buy] != -1)
+            return dp[i][buy];
+        int profit = 0;
+        if(buy) {
+            int inc = -prices[i] + f(prices, i + 1, n, !buy);
+            int exc = f(prices, i + 1, n, buy);
+            profit = max(inc, exc);
+        }
+        else {
+            int inc = prices[i] + f(prices, i + 1, n, !buy);
+            int exc = f(prices, i + 1, n, buy);
+            profit = max(inc, exc);
+        }
+        return dp[i][buy] = profit;
+    }
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        bool buy = 1;
+        dp = vector<vector<int>> (n+1, vector<int> (2, -1));
+        return f(prices, 0, n, buy);
+    }
+};
+
+
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        bool buy = 1;
+        vector<vector<int>> dp = vector<vector<int>> (n+1, vector<int> (2, 0));
+        for(int i = n - 1; i >= 0; --i) {
+            for(int j = 0; j <= buy; ++j) {
+                int profit = 0;
+                if(j) {
+                    int inc = -prices[i] + dp[i+1][!j];
+                    int exc = dp[i+1][j];
+                    profit = max(inc, exc);
+                }
+                else {
+                    int inc = prices[i] + dp[i+1][!j];
+                    int exc = dp[i+1][j];
+                    profit = max(inc, exc);
+                }
+                dp[i][j] = profit;
+            }
+        }
+        return dp[0][buy];
+    }
+
+
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        bool buy = 1;
+        vector<int> dp0, dp1;
+        dp0 = dp1 = vector<int> (2, 0); 
+        for(int i = n - 1; i >= 0; --i) {
+            for(int j = 0; j <= buy; ++j) 
+                dp1[j] = max(dp0[j], dp0[!j] + prices[i]*(j?-1:1));
+            dp0 = dp1;
+        }
+        return dp0[buy];
+    }
+
+
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        bool buy = 1;
+        vector<int> dp0 = vector<int> (2, 0); 
+        for(int i = n - 1; i >= 0; --i) {
+            for(int j = 0; j <= buy; ++j) 
+                dp0[j] = max(dp0[j], dp0[!j] + prices[i]*(j?-1:1));
+        }
+        return dp0[buy];
+    }

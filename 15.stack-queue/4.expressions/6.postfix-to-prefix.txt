@@ -1,0 +1,15 @@
+string postfixToPrefix(string &s){
+    stack<string> st;
+    for(auto& ch : s){
+        if(ch == '+' || ch == '-' || ch == '*' || ch == '/'){
+            string op2 = st.top();
+            st.pop();
+            string op1 = st.top();
+            st.pop();
+            st.push(ch+op1+op2);
+        }else{
+            st.push(string(1,ch));
+        }
+    }
+    return st.top();
+} -> reverse + rest 

@@ -1,0 +1,58 @@
+// queue using array
+#define n 100
+class Queue{
+    
+    int* arr;
+    int Front ,back;
+    
+    public :
+        Queue(){
+            arr = new int[n];
+            Front = -1;
+            back = -1;
+        }
+        bool empty(){
+            return Front>back || Front==-1;
+        }
+        void push(int x){
+            if(back == n-1){
+                cout << "Overflow" << endl;
+                return;
+            }   
+            if(empty()){
+                Front++; 
+            }
+            arr[++back] = x;
+        }
+        void pop(){
+            if(empty()){
+                cout << "Underflow" << endl;
+                return;
+            }
+            Front++;
+        }
+        int front(){
+            if(empty()){
+                cout << "No element in queue" << endl;
+                return -1;
+            }
+            return arr[Front];
+        }
+};
+ 
+int main(){
+     
+    int arr[] = {1,2,3,4,5};
+    Queue q;
+     
+    for(int i = 0; i < 5; ++i)
+        q.push(arr[i]);
+     
+    while(!q.empty()){
+        cout << q.front() << " ";
+        q.pop();
+    }
+    cout << endl;
+     
+    return 0;
+}

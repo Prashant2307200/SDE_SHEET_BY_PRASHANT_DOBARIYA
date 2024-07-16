@@ -1,0 +1,22 @@
+node* roo(node* root0, const vector<int> &vec, int i) {
+        if (i >= vec.size()) {
+            return nullptr;
+        }
+
+        if (root0 == nullptr) {
+            root0 = newNode(vec[i]);
+        }
+
+        if (2*i+1 < vec.size()) {
+            root0->left = roo(root0->left, vec, 2*i+1);
+        }
+        if (2*i+2 < vec.size()) {
+            root0->right = roo(root0->right, vec, 2*i+2);
+        }
+
+        return root0;
+    }
+public:
+    void create_tree(node* root0, const vector<int> &vec) {
+        roo(root0, vec, 0);
+    }

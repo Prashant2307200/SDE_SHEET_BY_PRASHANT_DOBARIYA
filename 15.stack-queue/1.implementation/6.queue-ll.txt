@@ -1,0 +1,47 @@
+// queue using linked list
+class node{
+    public:
+        int data;
+        node* next;
+        node(int x){
+            data = x;
+            next = NULL;
+        }
+};
+
+class Queue{
+    node* front;
+    node* back;
+    public :
+        Queue(){
+            front = NULL;
+            back = NULL;
+        }
+        void push(int x){
+            node* n = new node(x);
+            if(empty()){
+                front = n;
+                back = n;
+                return;
+            }
+            back -> next = n;
+            back = back -> next;
+        }
+        void pop(){
+            if(empty()){
+                return;
+            }
+            node* toDel = front;
+            front = front -> next;
+            delete toDel;
+        }
+        int Front(){
+            if(empty()){
+                return -1;
+            }
+            return front -> data;
+        }
+        bool empty(){
+            return front == NULL;
+        }
+};

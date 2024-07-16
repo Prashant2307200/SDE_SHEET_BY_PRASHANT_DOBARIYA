@@ -1,0 +1,40 @@
+class Solution {
+    int len(ListNode* head) {
+        int l = 0;
+        ListNode* fast = head;
+        while(fast && fast -> next) 
+            l += 2, fast = fast -> next -> next;
+        if(fast) 
+            l++;
+        return l;
+    }
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        int cnt = len(head)-n-1;
+        if(cnt == -1)
+            return head -> next;
+        ListNode* temp = head;
+        while(cnt && temp) 
+            cnt--,temp = temp -> next;
+        ListNode* toDel = temp -> next;
+        temp -> next = toDel -> next;
+        delete toDel;
+        return head;
+    }
+};
+
+    
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        for(int i = 0; i < n && fast; ++i)
+            fast = fast -> next;
+        if(fast == NULL)   
+            return head -> next;
+        while(fast -> next)
+            slow = slow -> next, fast = fast -> next;
+        ListNode* toDel = slow -> next;
+        slow -> next = toDel -> next;
+        delete toDel;
+        return head;
+    }

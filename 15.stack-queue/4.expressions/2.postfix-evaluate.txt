@@ -1,0 +1,28 @@
+int evaluatePostfix(string s){
+    int n = s.size();
+    stack<int> st;
+    for(auto& ch : s){
+        if(isdigit(ch)){
+            st.push(ch - '0');
+        }
+        else{
+            int op2 = st.top();
+            st.pop();
+            int op1 = st.top();
+            st.pop();
+            switch(ch){
+                case '+':
+                    st.push(op1 + op2);
+                    break;
+                case '-':
+                    st.push(op1 - op2);
+                    break;
+                case '*':
+                    st.push(op1 * op2);
+                    break;
+                case '/':
+                    st.push(op1 / op2);
+            }
+        }
+    }return st.top();
+}

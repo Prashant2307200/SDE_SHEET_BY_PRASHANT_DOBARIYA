@@ -1,0 +1,59 @@
+    Node* segregate(Node *head) {
+        Node* temp = head;
+        int cnt0 = 0, cnt1 = 0, cnt2 = 0;
+        while(temp) {
+            if(temp -> data == 0)
+                cnt0++;
+            else if(temp -> data == 1)
+                cnt1++;
+            else
+                cnt2++;
+            temp = temp -> next;
+        }
+        temp = head;
+        while(temp) {
+            if(cnt0) {
+                temp -> data = 0;
+                --cnt0;
+            }
+            else if(cnt1) {
+                temp -> data = 1;
+                --cnt1;
+            }
+            else {
+                temp -> data = 2;
+                --cnt2;
+            }
+            temp = temp -> next;
+        }
+        return head;
+    }
+
+    Node* segregate(Node *head) {
+        Node* dummyNode0 = new Node(-1);
+        Node* dummyNode1 = new Node(-1);
+        Node* dummyNode2 = new Node(-1);
+        Node* p0 = dummyNode0;
+        Node* p1 = dummyNode1;
+        Node* p2 = dummyNode2;
+        Node* temp = head;
+        while(temp) {
+            if(temp -> data == 0) {
+                p0 -> next = temp;
+                p0 = p0 -> next;
+            }
+            else if(temp -> data == 1) {
+                p1 -> next = temp;
+                p1 = p1 -> next;
+            }
+            else {
+                p2 -> next = temp;
+                p2 = p2 -> next;
+            }
+            temp = temp -> next;
+        }
+        p0 -> next = dummyNode1 -> next ? dummyNode1 -> next : dummyNode2 -> next;
+        p1 -> next = dummyNode2 -> next;
+        p2 -> next = NULL;
+        return dummyNode0 -> next;
+    }

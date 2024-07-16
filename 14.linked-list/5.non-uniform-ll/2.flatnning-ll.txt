@@ -1,0 +1,50 @@
+Node *flatten(Node *root) {
+    vector<int> ans;
+    for(Node* i = root; i; i = i -> next) {
+        for(Node* j = i; j; j = j -> bottom) 
+            ans.push_back(j -> data);
+    }
+    sort(ans.begin(), ans.end());
+    Node* dummyNode = new Node(-1);
+    Node* p = dummyNode;
+    for(auto& val: ans) {
+        p -> bottom = new Node(val);
+        p = p -> bottom;
+    }
+    return dummyNode -> bottom;
+}
+
+
+Node* merge(Node* list1, Node* list2){ 
+    Node* dummyNode = new Node(-1);
+    Node* res = dummyNode; 
+    while(list1 && list2){
+        if(list1 -> data < list2 -> data) {
+            res -> bottom = list1;
+            res = list1;
+            list1 = list1->bottom;
+        }
+        else {
+            res->bottom = list2;
+            res = list2;
+            list2 = list2->bottom;
+        }
+        res->next = NULL;
+    }
+    if(list1){
+        res->bottom = list1;
+    } 
+    else {
+        res->bottom = list2;
+    }
+    if(dummyNode -> bottom)
+        dummyNode->bottom->next = NULL;
+    return dummyNode->bottom;
+}
+Node* flatten(Node* head){
+    if(head == NULL || head->next == NULL)
+        return head;
+    Node* mergedHead = flatten(head -> next);
+    head = merge(head, mergedHead);
+    return head;
+}
