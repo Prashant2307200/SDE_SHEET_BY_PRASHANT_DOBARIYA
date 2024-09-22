@@ -1,0 +1,61 @@
+    #define ll long long
+    const int mod = 1e3 + 3;
+    int f(int i, int j, int isTrue, string s) {
+        if(i > j) return 0;
+        if(i == j) return isTrue ? s[i] == 'T' : s[i] == 'F';
+        ll ways = 0;
+        for(int k = i+1; k < j; k += 2) {
+            ll lT = f(i, k-1, 1, s); 
+            ll lF = f(i, k-1, 0, s); 
+            ll rT = f(k+1, j, 1, s); 
+            ll rF = f(k+1, j, 0, s); 
+            if(s[k] == '&') {
+                if(isTrue)
+                    ways = (ways + (lT * rT)%mod)%mod;
+                else
+                    ways = (ways + (lT * rF)%mod + (lF * rT)%mod + (lF * rF)%mod)%mod;
+            }
+            else if(s[k] == '|') {
+                if(isTrue)
+                    ways = (ways + (lT * rT)%mod + (lF * rT)%mod + (lT * rF)%mod)%mod;
+                else
+                    ways = (ways + (lF * rF)%mod)%mod;
+            }
+            else if(s[k] == '^') {
+                if(isTrue)
+                    ways =  (ways + (lT * rF)%mod + (lF * rT)%mod)%mod; 
+                else
+                    ways =  (ways + (lT * rT)%mod + (lF * rF)%mod)%mod; 
+            }
+        }
+        return (int)ways;
+    }
+
+
+int countWays(int n, string s){
+    vector<vector<vector<ll>>> dp(n, vector<vector<ll>> (n, vector<ll> (2, 0)));
+    for(int i = 0; i < n; ++i) dp[i][i][0] = s[i] == 'F', dp[i][i][1] = s[i] == 'T';
+    for(int i = n-1; i >= 0; --i) {
+        for(int j = i+1; j < n; ++j) {
+            for(int l = i+1; l < j; l += 2) {
+                ll lT = dp[i][l-1][1]; 
+                ll lF = dp[i][l-1][0]; 
+                ll rT = dp[l+1][j][1]; 
+                ll rF = dp[l+1][j][0]; 
+                if(s[l] == '&') {
+                    dp[i][j][1] = (dp[i][j][1] + (lT * rT)%mod)%mod;
+                    dp[i][j][0] = (dp[i][j][0] + (lT * rF)%mod + (lF * rT)%mod + (lF * rF)%mod)%mod;
+                }
+                else if(s[l] == '|') {
+                    dp[i][j][1] = (dp[i][j][1] + (lT * rT)%mod + (lF * rT)%mod + (lT * rF)%mod)%mod;
+                    dp[i][j][0] = (dp[i][j][0] + (lF * rF)%mod)%mod;
+                }
+                else if(s[l] == '^') {
+                    dp[i][j][1] =  (dp[i][j][1] + (lT * rF)%mod + (lF * rT)%mod)%mod;
+                    dp[i][j][0] =  (dp[i][j][0] + (lT * rT)%mod + (lF * rF)%mod)%mod; 
+                }
+            }
+        }
+    }
+    return (int)dp[0][n-1][1];
+}

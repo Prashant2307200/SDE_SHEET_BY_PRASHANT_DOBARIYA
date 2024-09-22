@@ -1,0 +1,35 @@
+class Solution {
+    int maxDepth(TreeNode* root) {
+        if(!root)
+            return 0;
+        int lh = maxDepth(root -> left);
+        int rh = maxDepth(root -> right);
+        return 1 + max(lh,rh);
+    }
+public:
+    bool isBalanced(TreeNode* root) {
+        if(!root) return 1;
+        int lh = maxDepth(root -> left);
+        int rh = maxDepth(root -> right);
+        if(abs(rh - lh) > 1) return 0;
+        if(!isBalanced(root -> left) || !isBalanced(root -> right)) return 0;
+        return 1;
+    }
+};
+
+
+class Solution {
+    int maxDepth(TreeNode* root) {
+        if(!root)
+            return 0;
+        int lh = maxDepth(root -> left);
+        int rh = maxDepth(root -> right);
+        if(lh == -1 || rh == -1) return -1;
+        if(abs(lh - rh) > 1) return -1;
+        return 1 + max(lh,rh);
+    }
+public:
+    bool isBalanced(TreeNode* root) {
+        return maxDepth(root) != -1;
+    }
+};

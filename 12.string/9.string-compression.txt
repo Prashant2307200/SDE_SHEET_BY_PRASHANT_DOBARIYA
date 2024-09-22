@@ -13,5 +13,6 @@ int compress(vector<char>& chars) {
             for(auto& ch : count)
                 chars[ansIdx++] = ch;
         }
-    }return ansIdx;
+    }
+    return ansIdx;
 }

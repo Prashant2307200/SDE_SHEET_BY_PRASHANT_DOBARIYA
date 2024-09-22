@@ -6,7 +6,7 @@ reverse(v.begin(),v.end()); rand()
 
 do{
     ans.push_back(nums);
-}while(next_permutation(nums.begin(),nums.end())); 
+} while(next_permutation(nums.begin(),nums.end())); 
 //is_permutation(,,,);
 
 it++ : nextIterator ,it+1 : nextLocation

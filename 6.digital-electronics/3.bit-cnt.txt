@@ -4,7 +4,7 @@ while(t--){
     long long form_dollar;
     cin >> form_dollar;
     cout << __builtin_popcountll(form_dollar) << endl;
-}
+} 
 
 int flipBit(int a,int b) {
     int n = a^b;

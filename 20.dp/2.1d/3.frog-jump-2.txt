@@ -1,0 +1,14 @@
+    int minimizeCost(vector<int>& arr, int& k) {
+        int n = arr.size();
+        k = min(k, n-1);
+        vector<int> dp(k);
+        dp[0] = 0;
+        for(int i = 1; i < n; ++i) {
+            int jumps = min(i, k);
+            int mini = 1e8;
+            for(int j = 1; j <= jumps; ++j) 
+                mini = min(mini, dp[(i-j)%k] + abs(arr[i] - arr[i-j]));
+            dp[i%k] = mini;
+        }
+        return dp[(n-1)%k];
+    }

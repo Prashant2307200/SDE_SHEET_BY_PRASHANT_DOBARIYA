@@ -12,7 +12,7 @@ public:
         int n = mat.size() ,m = mat[0].size();
         int low = 0 ,high = m-1;
         while(low <= high){
-            int col = (low+high)/2;
+            int col = (low + high)/2;
             int maxRowIdx = findMaxIdx(mat,n,m,col);
             int left = col-1 >= 0? mat[maxRowIdx][col-1] : -1;
             int right = col+1 < m? mat[maxRowIdx][col+1] : -1;

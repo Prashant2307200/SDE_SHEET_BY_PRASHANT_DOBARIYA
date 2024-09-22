@@ -1,12 +1,12 @@
 int smallestSubarrayWithSum(int arr[],int n,int x){
-    int sum = 0,minLength = n+1;
-    int start = 0,end = 0;
+    int sum = 0, minLength = n+1;
+    int start = 0, end = 0;
     while(end < n){
         if(sum <= x){
             sum += arr[end++];
             continue;
         }
-        minLength = min(minLength,end-start);
+        minLength = min(minLength,end - start);
         sum -= arr[start++];
     }
     return minLength;

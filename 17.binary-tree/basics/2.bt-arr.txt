@@ -1,0 +1,17 @@
+    void f(node* root0, vector<int>& v, int i, int n) {
+        if(i >= n) 
+            return;
+        if(2*i + 1 < n) {
+            root0 -> left = newNode(v[2*i + 1]);
+            f(root0 -> left, v, 2*i + 1, n); 
+        }
+        if(2*i + 2 < n) {
+            root0 -> right = newNode(v[2*i + 2]);
+            f(root0 -> right, v, 2*i + 2, n);
+        }
+    }
+public:
+
+    void create_tree(node* root0, vector<int> &vec){
+        f(root0, vec, 0, vec.size());
+    }

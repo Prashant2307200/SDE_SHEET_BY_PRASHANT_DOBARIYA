@@ -20,8 +20,8 @@ int countSmallerThanMid(vector<int> &row, int midian){
   return low;
 }
 int findMedian(vector<vector<int>> &A){
-    int low = *min_element(A.begin(),a.end());
-    int high = *max_element(A.begin(),a.end());
+    int low = *min_element(A.begin(), A.end());
+    int high = *max_element(A.begin(), A.end());
     int n = A.size() ,m = A[0].size();
     while (low <= high){
         int mid = (low + high) >> 1;

@@ -1,8 +1,8 @@
 bool rotateString(string s, string goal) {
     int n = s.size();
     int m = goal.size();
-    if(n != m){
+    if(n != m)
         return 0;
-    }string conc = goal + goal;
+    string conc = goal + goal;
     return conc.find(s) != -1;
 }

@@ -1,0 +1,77 @@
+class Solution {
+    vector<vector<int>> dp;
+    int f(int i, int j, int n, int m, string text1, string text2) {
+        if(i == n || j == m)
+            return 0;
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        return 
+            dp[i][j] = (text1[i] == text2[j])
+            ? f(i+1, j+1, n, m, text1, text2) + 1 
+            : max(f(i+1, j, n, m, text1, text2), f(i, j+1, n, m, text1, text2)); 
+    }
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int n = text1.size(), m = text2.size(), i = 0, j = 0;
+        dp = vector<vector<int>> (n+1, vector<int> (m+1, -1));
+        return f(i, j, n, m, text1, text2);
+    }
+};
+
+
+    int longestCommonSubsequence(string text1, string text2) {
+        int n = text1.size(), m = text2.size(), i = 0, j = 0;
+        vector<int> dp(m+1, 0);
+        for(int i = n-1; i >= 0; --i) {
+            int prev = 0;
+            for(int j = m-1; j >= 0; --j) {
+                int curr = dp[j];
+                dp[j] = (text1[i] == text2[j]) ? 1 + prev : max(dp[j], dp[j+1]);
+                prev = curr;
+            } 
+        }
+        return dp[0];
+    }
+
+
+
+    vector<vector<int>> lcs(string text1, string text2) {
+        int n = text1.size(), m = text2.size();
+        vector<vector<int>> dp(n+1, vector<int> (m+1, 0));
+        for(int i = n-1; i >= 0; --i) {
+            for(int j = m-1; j >= 0; --j) {
+                if(text1[i] == text2[j]) 
+                    dp[i][j] = 1 + dp[i+1][j+1];
+                else 
+                    dp[i][j] = max(dp[i+1][j], dp[i][j+1]);
+            }
+        }
+        return dp;
+    }
+    
+    void findAllLCS(string &s, string &t, int i, int j, vector<vector<int>> &dp, string currentLCS, vector<string> &ans) {
+        if (i == s.size() || j == t.size()) {
+            if (currentLCS.size() == dp[0][0]) 
+                ans.push_back(currentLCS);
+            return;
+        }
+        if (s[i] == t[j]) {
+            currentLCS.push_back(s[i]);
+            findAllLCS(s, t, i + 1, j + 1, dp, currentLCS, ans);
+            currentLCS.pop_back(); // Backtrack
+        } else {
+            if (dp[i+1][j] >= dp[i][j+1])
+                findAllLCS(s, t, i + 1, j, dp, currentLCS, ans);
+            if (dp[i][j+1] >= dp[i+1][j])
+                findAllLCS(s, t, i, j + 1, dp, currentLCS, ans);
+        }
+    }
+  public: 
+    vector<string> all_longest_common_subsequences(string s, string t) {
+        vector<string> ans;
+        vector<vector<int>> dp = lcs(s, t);
+        findAllLCS(s, t, 0, 0, dp, "", ans);
+        sort(ans.begin(), ans.end());
+        ans.erase(unique(ans.begin(), ans.end()), ans.end());
+        return ans;
+    }

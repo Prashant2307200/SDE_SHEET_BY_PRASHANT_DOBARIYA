@@ -1,0 +1,47 @@
+class Solution {
+    void f(int i,int n,int sum,vector<int>& cnds, int target,
+    vector<vector<int>>& ans,vector<int>& subset){
+        if(i >= n || sum >= target){
+            if(sum == target)
+                ans.push_back(subset);
+            return;
+        }
+        int next_i = i+1;
+        while(next_i < n && cnds[i] == cnds[next_i]) ++next_i;
+        subset.push_back(cnds[i]);
+        sum += cnds[i];
+        f(i+1,n,sum,cnds,target,ans,subset);
+        sum -= cnds[i];
+        subset.pop_back();
+        f(next_i,n,sum,cnds,target,ans,subset);
+    }
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        int n = candidates.size();
+        vector<int> subset;
+        vector<vector<int>> ans;
+        f(0,n,0,candidates,target,ans,subset);
+        return ans;
+    }
+};
+
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        int n = candidates.size(); 
+        vector<vector<vector<int>>> dp(target + 1);
+        dp[0].push_back({}); 
+        for (int i = 0; i < n; ++i) {
+            for (int sum = target; sum >= candidates[i]; --sum) {
+                if (!dp[sum - candidates[i]].empty()) {
+                    for (auto subset : dp[sum - candidates[i]]) {
+                        subset.push_back(candidates[i]);
+                        dp[sum].push_back(subset);
+                    }
+                }
+            }
+        } 
+        set<vector<int>> unique_combinations(dp[target].begin(), dp[target].end());
+        return vector<vector<int>> (unique_combinations.begin(), unique_combinations.end());
+    }

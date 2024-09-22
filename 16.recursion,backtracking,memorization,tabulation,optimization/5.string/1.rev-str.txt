@@ -1,4 +1,0 @@
-string rev(string str,int n){
-    if(n == 1)  return string(1,str[0]);
-    return str[n-1]+rev(str,n-1);
-}

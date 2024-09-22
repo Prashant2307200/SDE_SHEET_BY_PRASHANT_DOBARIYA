@@ -1,8 +1,8 @@
 int lengthOfLongestAP(int A[], int n) {
     if(n < 3)  return n;
-    int maxi = 2 ,currLen = 2 ,curr = 2,pd = A[1]-A[0];
+    int maxi = 2, currLen = 2, curr = 2, pd = A[1]-A[0];
     while(curr < n){
-        if(pd == A[curr]-A[curr-1])
+        if(pd == A[curr] - A[curr-1])
             currLen++;
         else
             currLen = 2;

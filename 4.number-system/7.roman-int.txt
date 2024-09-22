@@ -13,12 +13,12 @@ public:
         int ans = 0;
         int n = s.size();
         for(int i = 1; i < n; ++i){
-            if(num(s[i]) > num(s[i-1])){
+            if(num(s[i]) > num(s[i-1]))
                 ans -= num(s[i-1]);
-            }else{
+            else
                 ans += num(s[i-1]);
-            }
-        }ans += num(s[n-1]);
+        }
+        ans += num(s[n-1]);
         return ans;
     }
 };

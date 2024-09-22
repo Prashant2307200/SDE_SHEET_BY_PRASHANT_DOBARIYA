@@ -4,11 +4,10 @@ string addStrings(string nums1, string nums2) {
     int carry = 0;
     string ans = "";
     while( i >= 0 || j >= 0 || carry ){
-        if(i >= 0){
+        if(i >= 0)
             carry += nums1[i--] - '0';
-        }if(j >= 0){
+        if(j >= 0)
             carry += nums2[j--] - '0';
-        }
         ans = to_string(carry%10) + ans;
         carry /= 10;
     }
@@ -21,11 +20,11 @@ string addBinary(string a, string b) {
     int j = b.length()-1;
     int carry = 0;
     while(i >= 0 || j >= 0 || carry){
-        if(i >= 0){
+        if(i >= 0)
             carry += a[i--]-'0';
-        }if(j >= 0){
+        if(j >= 0)
             carry += b[j--]-'0';
-        }ans += carry%2+'0';
+        ans += carry%2+'0';
         carry /= 2;
     }
     reverse(ans.begin(),ans.end());

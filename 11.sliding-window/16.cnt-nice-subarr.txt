@@ -17,10 +17,11 @@ class Solution {
             odd += nums[i]&1;
             while(odd > k)  odd -= nums[j++]&1;
             cnt += i - j + 1;
-        }return cnt;
+        }
+        return cnt;
     }
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
         return helper(nums,k) - helper(nums,k-1);
     }
-};
+}; 

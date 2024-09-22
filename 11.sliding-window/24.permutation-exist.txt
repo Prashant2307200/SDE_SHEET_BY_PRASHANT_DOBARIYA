@@ -17,16 +17,14 @@ public:
         int f1[26] = {0},f2[26] = {0};
         cnt(f1,s1,n);
         cnt(f2,s2,n);
-        if(isEqual(f1,f2)){
+        if(isEqual(f1,f2))
             return 1;
-        }
         int i = n;
         while(i < m){
             f2[s2[i]-'a']++;
             f2[s2[i-n]-'a']--;
-            if(isEqual(f1,f2)){
+            if(isEqual(f1,f2))
                 return 1;
-            }
             i++;
         }
         return 0;

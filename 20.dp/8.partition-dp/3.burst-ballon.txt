@@ -1,0 +1,17 @@
+    int maxCoins(vector<int>& nums) {
+        int n = nums.size();
+        nums.insert(nums.begin(), 1);
+        nums.push_back(1);
+        vector<vector<int>> dp(n+2, vector<int> (n+2, 0));
+        for(int i = n; i > 0; --i) {
+            for(int j = i; j <= n; ++j) {
+                for(int k = i; k <= j; ++k) {
+                    int left = dp[i][k-1];
+                    int right = dp[k+1][j];
+                    int curr = nums[i-1] * nums[k] * nums[j+1];
+                    dp[i][j] = max(dp[i][j], left + right + curr);
+                }
+            }
+        } 
+        return dp[1][n];
+    }

@@ -1,0 +1,26 @@
+class Solution {
+    int longestCommonSubsequence(string text1, string text2) {
+        int n = text1.size(), m = text2.size();
+        vector<int> dp(m+1, 0);
+        for(int i = 1; i <= n; ++i) {
+            int prev0 = 0, prev1;
+            for(int j = 1; j <= m; ++j) {
+                prev1 = dp[j];
+                if(text1[i-1] == text2[j-1])
+                    dp[j] = 1 + prev0;
+                else
+                    dp[j] = max(dp[j], dp[j-1]);
+                prev0 = prev1;
+            }
+        }
+        return dp[m];
+    }
+public:
+    int minInsertions(string s) {
+        int n = s.size();
+        string rev_s = s;
+        reverse(rev_s.begin(), rev_s.end());
+        int maxi = longestCommonSubsequence(s, rev_s);
+        return n - maxi;
+    }
+};

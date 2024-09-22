@@ -33,26 +33,21 @@ int bit_cnt = (int)log2(c)+1;
 int a = 0 ,b = 0;
 vector<int> set_bits;
 for(int i = 0; i < bit_cnt; ++i){
-    if((c>>i)&1 != 0){
+    if((c>>i)&1)
         set_bits.push_back(i);
-    }
-    else{
-        a |= (1 << i);
-        b |= (1 << i);
-    }
+    else
+        a |= (1 << i), b |= (1 << i);
 }
 int n = set_bits.size();
 int sz = (1<<n);
 long long ans = 0;
 for(int mask = 0; mask < sz; ++mask){
     int a_copy = a ,b_copy = b;
-    for(int i = 0; i < n; ++i){
-        if((mask>>i)&1 != 0){
+    for(int i = 0; i < n; ++i) {
+        if((mask>>i)&1 != 0)
             a |= (1 << set_bits[i]);
-        }
-        else{
+        else
             b |= (1 << set _bits[i]);
-        }
     }
     ans = max(ans,a_copy * 1LL * b_copy);
 }
@@ -81,17 +76,15 @@ int maxProduct(vector<string>& words) {
     int len[n] = {0};
     int masks[n] = {0};
     int maxi = 0;
-    for(int i = 0; i < n; ++i){
-        int size = words[i].size();
-        len[i] = size;
-    }
+    for(int i = 0; i < n; ++i)
+        len[i] = words[i].size();
     for(int i = 0; i < n; ++i){
         string word = words[i];
         int len = len[i];
         int mask = 0;
         for(int j = 0; j < len; ++j){
             char ch = word[j];
-            mask |= (1<<(ch-'a'));
+            mask |= (1 << (ch-'a'));
         }
         masks[i] = mask;
         for(int j = 0; j < i; ++j){

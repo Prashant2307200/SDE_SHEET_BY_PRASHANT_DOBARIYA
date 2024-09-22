@@ -1,13 +1,12 @@
 string frequencySort(string s) {
     unordered_map<char,int> hsh;
-    for(auto& ch : s){
+    for(auto& ch : s)
         hsh[ch]++;
-    }sort(s.begin(),s.end(),[&](char a,char b){
-        if(hsh[a] == hsh[b]){
+    sort(s.begin(),s.end(),[&](char a,char b){
+        if(hsh[a] == hsh[b])
             return a < b;
-        }else{
+        else
             return hsh[a] > hsh[b];
-        }
     });
     return s;
 }

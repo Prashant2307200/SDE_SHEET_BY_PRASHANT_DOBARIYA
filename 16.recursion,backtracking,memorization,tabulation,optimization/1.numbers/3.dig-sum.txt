@@ -1,3 +1,0 @@
-int digSum(int n){
-    return ((!n)?n:n%10+digSum(n/10));
-}

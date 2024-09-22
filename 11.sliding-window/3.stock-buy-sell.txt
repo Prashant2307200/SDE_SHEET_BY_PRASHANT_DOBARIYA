@@ -1,5 +1,5 @@
 int maxProfit(vector<int>& prices) {
-    int n = prices.size() ,maxProfit = 0 ,mini = prices[0];
+    int n = prices.size(), maxProfit = 0, mini = prices[0];
     for(int i = 1; i < n; ++i){
         int profit = prices[i] - mini;
         maxProfit = max(maxProfit ,profit);

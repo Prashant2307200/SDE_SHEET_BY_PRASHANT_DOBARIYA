@@ -39,12 +39,12 @@ vector<int> FindUnion(int arr1[], int arr2[], int n, int m) {
             j++;
         }
     }
-    while (i < n){
+    while (i < n) {
         if (Union.back() != arr1[i])
         Union.push_back(arr1[i]);
         i++;
     }
-    while (j < m){
+    while (j < m) {
         if (Union.back() != arr2[j])
         Union.push_back(arr2[j]);
         j++;

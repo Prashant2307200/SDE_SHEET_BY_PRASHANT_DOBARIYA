@@ -45,6 +45,6 @@ long long inversion(int s,int e,vector<int>& a) {
 }
 
 int numberOfInversions(vector<int>&a, int n) {
-    int s = 0 ,e = n-1;
+    int s = 0, e = n-1;
     return inversion(s,e,a);
 }

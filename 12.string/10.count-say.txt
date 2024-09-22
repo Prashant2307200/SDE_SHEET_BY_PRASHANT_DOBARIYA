@@ -10,6 +10,8 @@ string countAndSay(int n) {
         while(i < sz-1 && say[i] == say[i+1]) {
             count++;
             i++;
-        }result += to_string(count) + string(1, say[i]);
-    }return result;
+        }
+        result += to_string(count) + string(1, ch);
+    }
+    return result;
 } 

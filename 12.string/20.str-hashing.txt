@@ -16,9 +16,8 @@ int main(){
     
     int dist = 0 ,n = strs.size();
     for(int i = 0; i < n; ++i){
-        if(i != 0 && strs[i] == strs[i-1]){
+        if(i != 0 && strs[i] == strs[i-1])
             continue;
-        }
         dist++;
     }
     cout << dist << endl;
@@ -38,9 +37,8 @@ vector<long long> pows(N);
 long long calcHsh(string s){
     long long hsh = 0;
     int n = s.size();
-    for(int i = 0; i < n; ++i){
+    for(int i = 0; i < n; ++i)
         hsh += ((s[i]-'a'+1) * pows[i])%m;
-    }
     return hsh;
 }
 
@@ -61,17 +59,15 @@ int main(){
     };
     
     vector<long long> hshs;
-    for(auto word : strs){
+    for(auto word : strs)
         hshs.push_back(calcHsh(word));
-    }
     
     sort(hshs.begin(),hshs.end());
     
     int n = hshs.size() ,dist = 0;
     for(int i = 0; i < n; ++i){
-        if(i != 0 && hshs[i] == hshs[i-1]){
+        if(i != 0 && hshs[i] == hshs[i-1])
             continue;
-        }
         dist++;
     }
     cout << dist << endl;

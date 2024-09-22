@@ -3,9 +3,8 @@ void word(string s){
     string ans;
     for(int i = 0; i < n; ++i){
         string word;
-        while(i < n && s[i] != ' '){
+        while(i < n && s[i] != ' ')
             word += s[i++];
-        }
         cout << word << endl;
     }
 }

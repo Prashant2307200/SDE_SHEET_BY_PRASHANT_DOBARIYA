@@ -1,0 +1,48 @@
+    vector<vector<int>> dp;
+    int f(int n, int m, vector<vector<int>>& arr) {
+        if(n == 0) return 0;
+        if(dp[n][m] != -1) return dp[n][m];
+        int maxi = 0;
+        for(int task = 0; task < 3; ++task) {
+            if(task == m) continue;
+            maxi = max(maxi, f(n-1, task, arr) + arr[n-1][task]);
+        }
+        return dp[n][m] = maxi;
+    }
+  public:
+    int maximumPoints(vector<vector<int>>& arr, int n) {
+        int m = 3;
+        dp = vector<vector<int>> (n+1, vector<int> (m+1, -1));
+        return f(n, m, arr);
+    }
+
+
+    int maximumPoints(vector<vector<int>>& arr, int n) {
+        int m = 3;
+        vector<vector<int>> dp(n+1, vector<int> (m+1, 0));
+        for(int i = 1; i <= n; ++i) {
+            for(int j = 0; j <= m; ++j) {
+                for(int task = 0; task < 3; ++task) {
+                    if(j == task) continue;
+                    dp[i][j] = max(dp[i][j], arr[i-1][task] + dp[i-1][task]);
+                }
+            }
+        }
+        return dp[n][m];
+    }
+
+
+    int maximumPoints(vector<vector<int>>& arr, int n) {
+        int m = 3;
+        vector<int> dp0(m+1, 0), dp1(m+1, 0);
+        for(int i = 1; i <= n; ++i) {
+            for(int j = 0; j <= m; ++j) {
+                for(int task = 0; task < 3; ++task) {
+                    if(j == task) continue;
+                    dp1[j] = max(dp1[j], arr[i-1][task] + dp0[task]);
+                }
+            }
+            dp0 = dp1;
+        }
+        return dp0[m];
+    }

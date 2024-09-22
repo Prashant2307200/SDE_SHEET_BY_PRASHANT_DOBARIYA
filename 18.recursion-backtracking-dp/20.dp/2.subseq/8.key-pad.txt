@@ -1,0 +1,24 @@
+class Solution {
+    vector<string> ans;
+    vector<string> keypadArr = {"", "","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    void f(int i, int n, string dig, string comb) {
+        if(i == n) {
+            if(comb != "")
+            ans.push_back(comb);
+            return;
+        }
+        int m = keypadArr[dig[i]-'0'].size();
+        for(int j = 0; j < m; ++j) {
+            comb.push_back(keypadArr[dig[i]-'0'][j]);
+            f(i+1, n, dig, comb);
+            comb.pop_back();
+        }
+    }
+public:
+    vector<string> letterCombinations(string digits) {
+        int n = digits.size();
+        string comb;
+        f(0, n, digits, comb);
+        return ans;
+    }
+};

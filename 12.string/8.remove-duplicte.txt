@@ -18,9 +18,10 @@ string removeDuplicates(string s) {
             s.erase(i,2);
             i = max(0,i-1);
         }
-        else{
+        else
             i++;
-        }
     }
     return s;
 }
+
+abbc

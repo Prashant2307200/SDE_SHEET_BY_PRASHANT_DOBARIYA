@@ -1,10 +1,3 @@
-int multiply(int a,int b){
-    int sum = 0;
-    for(int i = 0; i < b; ++i)
-        sum += a;
-    return sum;
-}
-
 int multiply(int a, int b) {
     int result = 0;
     while (b) { 
@@ -14,7 +7,7 @@ int multiply(int a, int b) {
         b >>= 1; 
     }
     return result;
-}
+} 
 
 double myPow(double x, int n) {
     double ans = 1;
@@ -27,20 +20,6 @@ double myPow(double x, int n) {
         pow >>= 1;
     }
     return n < 0? 1/ans : ans;
-}
-
-int divide(int dividend, int divisor) {
-    if(divisor == 1) 
-        return dividend;
-    else if(divisor == -1 && dividend == INT_MIN)
-        return INT_MAX;
-    int sign = dividend > 0 ^ divisor > 0 ? -1 : 1;
-    long long divd = abs(dividend) ,divs = abs(divisor) ,q = 0;
-    while(divd >= divs){
-        divd -= divs;
-        q++;
-    }
-    return q*sign;
 }
 
 int divide(int dividend, int divisor) {
@@ -63,6 +42,5 @@ int divide(int dividend, int divisor) {
     }
     res = sign * res;
     return res > INT_MAX ? INT_MAX : res < INT_MIN ? INT_MIN : (int)res;
-} 
-
+}    
 

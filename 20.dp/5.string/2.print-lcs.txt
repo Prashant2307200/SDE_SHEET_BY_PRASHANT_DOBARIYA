@@ -1,0 +1,53 @@
+    vector<string> ans;
+    vector<vector<int>> dp;
+    unordered_map<string, bool>memo;
+    
+    vector<vector<int>> lcs(string text1, string text2) {
+        int n = text1.size(), m = text2.size();
+        dp = vector<vector<int>>(n+1, vector<int>(m+1, 0));
+        for (int i = 1; i <= n; ++i) {
+            for (int j = 1; j <= m; ++j) {
+                if (text1[i-1] == text2[j-1])
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                else
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+            }
+        }
+        return dp;
+    }
+    
+    void findAllLCS(string &lcs, int n, int m, string &s, string &t, int lcsLength) { 
+        if (n == 0 || m == 0) {
+            if (lcs.size() == lcsLength) {
+                reverse(lcs.begin(), lcs.end());   
+                ans.push_back(lcs);
+                reverse(lcs.begin(), lcs.end());  
+            }
+            return;
+        }
+        
+        string key = to_string(m) + "," + to_string(n) + "," + lcs;
+        if (memo.find(key) != memo.end()) return;
+        memo[key] = true;
+        
+        if (s[n-1] == t[m-1]) {
+            lcs.push_back(s[n-1]);
+            findAllLCS(lcs, n-1, m-1, s, t, lcsLength);
+            lcs.pop_back();
+        } else { 
+            if (n > 0 && dp[n-1][m] == dp[n][m]) 
+                findAllLCS(lcs, n-1, m, s, t, lcsLength);
+            if (m > 0 && dp[n][m-1] == dp[n][m])
+                findAllLCS(lcs, n, m-1, s, t, lcsLength);
+        }
+    }
+public:
+    vector<string> all_longest_common_subsequences(string s, string t) {
+        dp = lcs(s, t); 
+        string lcs = ""; 
+        int lcsLength = dp[s.size()][t.size()]; 
+        findAllLCS(lcs, s.size(), t.size(), s, t, lcsLength);  
+        sort(ans.begin(), ans.end());
+        ans.erase(unique(ans.begin(), ans.end()), ans.end());
+        return ans;
+    }

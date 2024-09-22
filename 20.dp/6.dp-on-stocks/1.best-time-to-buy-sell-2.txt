@@ -1,0 +1,42 @@
+class Solution {
+    vector<vector<int>> dp;
+    int f(int i, int buy, int n, vector<int>& prices) {
+        if(i == n) 
+            return 0; 
+        if(dp[i][buy] != -1)
+            return dp[i][buy];
+        return dp[i][buy] = max(
+            f(i+1, !buy, n, prices) + (buy?-1:1) * prices[i], 
+            f(i+1, buy, n, prices)
+        );
+    }
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        int i = 0, buy = 1;
+        dp = vector<vector<int>> (n+1, vector<int> (buy+1, -1));
+        return f(i, buy, n, prices);
+    }
+};
+
+
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size(), buy = 1;
+        int dp0 = 0, dp1 = 0; 
+        for(int i = n-1; i >= 0; --i) {
+            dp1 = max(dp1, dp0 - prices[i]);
+            dp0 = max(dp0, dp1 + prices[i]);
+        }
+        return dp1;
+    }
+
+
+int maxProfit(vector<int>& prices) {
+    int maxi = 0, n = prices.size(), start = prices[0];
+    for(int i = 1; i < n; ++i) {
+        if(start < prices[i])
+            maxi += prices[i] - start;
+        start = prices[i];
+    }
+    return maxi;
+}  

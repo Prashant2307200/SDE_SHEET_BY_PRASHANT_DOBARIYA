@@ -17,7 +17,7 @@ public:
 class Solution {
     int cnt(int m,int n){
         int total = m+n-2;
-        int alt = m-1;
+        int alt = min(m-1, n-1);
         double ans = 1;
         for(int i = 1; i <= alt; ++i){
             ans *= (total - alt + i);
@@ -29,4 +29,4 @@ public:
     int uniquePaths(int m, int n) {
         return cnt(m,n);
     }
-};
+};  

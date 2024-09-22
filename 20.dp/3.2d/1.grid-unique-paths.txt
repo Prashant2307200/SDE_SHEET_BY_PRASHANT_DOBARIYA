@@ -1,0 +1,72 @@
+class Solution {
+    vector<vector<int>> dp;
+    int f(int m, int n) {
+        if(m <= 0 || n <= 0) return 0;
+        if(m == 1 && n == 1) return 1;
+        if(dp[m][n] != -1) return dp[m][n];
+        return dp[m][n] = f(m-1, n) + f(m, n-1);
+    }
+public:
+    int uniquePaths(int m, int n) {
+        dp = vector<vector<int>> (m+1, vector<int> (n+1, -1));
+        return f(m, n);
+    }
+};
+
+
+    int uniquePaths(int m, int n) {
+        vector<vector<int>> dp(m+1, vector<int> (n+1, 0));
+        dp[1][1] = 1;
+        for(int i = 1; i <= m; ++i) {
+            for(int j = 1; j <= n; ++j) {
+                if(i == 1 && j == 1) continue;
+                dp[i][j] = dp[i-1][j] + dp[i][j-1];
+            }
+        }
+        return dp[m][n];
+    }
+
+
+    int uniquePaths(int m, int n) {
+        vector<int> dp0(n+1, 0), dp1(n+1, 0);
+        dp1[1] = 1;
+        for(int i = 1; i <= m; ++i) {
+            for(int j = 1; j <= n; ++j) {
+                if(i == 1 && j == 1) continue;
+                dp1[j] = dp0[j] + dp1[j-1];
+            }
+            dp0 = dp1;
+        }
+        return dp0[n];
+    }
+
+
+    int uniquePaths(int m, int n) {
+        vector<int> dp(n+1, 0);
+        dp[1] = 1;
+        for(int i = 1; i <= m; ++i) {
+            for(int j = 1; j <= n; ++j) {
+                if(i == 1 && j == 1) continue;
+                dp[j] += dp[j-1];
+            }
+        }
+        return dp[n];
+    }
+
+
+class Solution {
+    int nCr(int row, int col) {
+        int n = row + col - 2;
+        int r = min(row-1, col-1);
+        double ans = 1;
+        for(int alt = 1; alt <= r; ++alt) {
+            ans *= (n - alt + 1);
+            ans /= alt;
+        }
+        return (int)ans;
+    }
+public:
+    int uniquePaths(int m, int n) {
+        return nCr(m, n);
+    }
+};

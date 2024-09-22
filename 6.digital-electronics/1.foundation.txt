@@ -10,8 +10,8 @@ INTUITION :
 ->  toggle : n ^= (1<<i)
 ->  copy : x | (y & ((1<<(r-l+1))-1)<<(l-1))
 ->  comp(n) : u - n or u & ~n or u = comp(n)|n
-->  clrLMBtilli : n & -(1<<(i+1))
-->  clrRMBtilli : n & (1<<(i+1))-1
+->  clrRMBtilli : n & -(1<<(i+1))
+->  clrLMBtilli : n & (1<<(i+1))-1
 ->  rmsb : n & -n  or n& ~n+1 or n& ~(n-1)
 ->  unset rmsb : n&(n-1)
 ->  NbitsComb : (1<<n) ,maxi : (1<<n)-1

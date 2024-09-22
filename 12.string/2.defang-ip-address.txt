@@ -3,10 +3,9 @@ string defangIPaddr(string address) {
     string ans;
     for(int i = 0; i < n; ++i){
         char ch = address[i];
-        if(ch == '.'){
+        if(ch == '.')
             ans += "[.]";
-        }else{
+        else
             ans += ch;
-        }
     }return ans;
 }

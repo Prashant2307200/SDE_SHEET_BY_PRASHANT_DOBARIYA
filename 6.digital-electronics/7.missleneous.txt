@@ -251,9 +251,9 @@ int findDuplicate(vector<int>& nums) {
 
 int findDuplicate(vector<int>& nums) {
     int n = nums.size() ,ans = n;
-    int low = 0 ,high = n-1;
+    int low = 1, high = n-1;
     while(low <= high){
-        int cnt = 0 ,mid = (low+high)/2;
+        int cnt = 0, mid = (low+high)/2;
         for(int i = 0; i < n; ++i){
             if(nums[i] <= mid)
                 cnt++;
@@ -312,7 +312,7 @@ int findDuplicate(vector<int>& nums) {
     do{
         slow = nums[slow];
         fast = nums[nums[fast]];
-    }while(slow != fast);
+    } while(slow != fast);
     fast = nums[0];
     while(slow != fast){
         slow = nums[slow];
@@ -412,7 +412,7 @@ vector<int> findMissingRepeatingNumbers(vector<int> a) {
 
 vector<int> findMissingRepeatingNumbers(vector<int> a) {
     int n = a.size();
-    int xr = 0 ,zero = 0 ,one = 0;
+    int xr = 0, zero = 0, one = 0;
     for (int i = 0; i < n; i++){
         xr = xr ^ a[i];
         xr = xr ^ (i + 1);

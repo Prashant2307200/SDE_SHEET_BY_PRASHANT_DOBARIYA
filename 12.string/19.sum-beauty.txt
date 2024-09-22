@@ -10,8 +10,8 @@ int beautySum(string s) {
                 int f = pr.second;
                 maxi = max(maxi ,f);
                 mini = min(mini ,f);
-            }ans += (maxi - mini);
-            
+            }
+            ans += (maxi - mini);
         }
     }return ans;
 } 

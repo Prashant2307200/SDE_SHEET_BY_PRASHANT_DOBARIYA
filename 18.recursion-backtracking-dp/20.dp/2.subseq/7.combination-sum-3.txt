@@ -1,0 +1,41 @@
+class Solution {
+    void f(int num,int nums,int sum,int cnt,int k,int n,
+    vector<vector<int>>& ans,vector<int>& subset){
+        if(num > nums || cnt >= k || sum >= n){
+            if(cnt == k && sum == n)
+                ans.push_back(subset);
+            return;
+        }
+        subset.push_back(num);
+        sum += num;
+        f(num+1,nums,sum,cnt+1,k,n,ans,subset);
+        sum -= num;
+        subset.pop_back();
+        f(num+1,nums,sum,cnt,k,n,ans,subset);
+    }
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>> ans;
+        vector<int> subset;
+        int nums = min(9,n-1);
+        f(1,nums,0,0,k,n,ans,subset);
+        return ans;
+    }
+};
+
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<vector<vector<int>>>> dp(k + 1, vector<vector<vector<int>>>(n + 1));
+        dp[0][0] = {{}};
+        for (int num = 1; num <= 9; ++num) {
+            for (int i = k; i >= 1; --i) {
+                for (int sum = num; sum <= n; ++sum) {
+                    for (auto subset : dp[i - 1][sum - num]) {
+                        subset.push_back(num);
+                        dp[i][sum].push_back(subset);
+                    }
+                }
+            }
+        }
+
+        return dp[k][n];   
+    } 

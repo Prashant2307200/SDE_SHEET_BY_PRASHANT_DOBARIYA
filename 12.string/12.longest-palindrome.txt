@@ -61,18 +61,15 @@ string longestPalindrome(string s) {
     int n = s.size() ,len = 0 ,st = 0;
     vector<vector<bool>> dp(n,vector<bool> (n));
     for(int gap = 0; gap < n; ++gap){
-        for(int i = 0 ,j = gap; j < n; ++j ,++i){
-            if(gap == 0 || gap == 1 || dp[i+1][j-1]){
+        for(int i = 0, j = gap; j < n; ++j, ++i){
+            if(gap == 0 || gap == 1 || dp[i+1][j-1])
                 dp[i][j] = !(s[i]-s[j]);
-            }
-            if(dp[i][j]){
-                st = i;
-                len = gap + 1;
-            }
+            if(dp[i][j]) 
+                st = i, len = gap + 1;
         }
     }
     return s.substr(st,len);
-}
+}    
 
 class Solution {
     void expand(string &s , int left ,int right){
@@ -84,7 +81,7 @@ class Solution {
         }
         int len = right - left - 1;
         int maxLen = ans.size();
-        if(maxLen < len )
+        if(maxLen < len)
             ans = s.substr(left + 1 ,len);
     }
 public:

@@ -2,12 +2,10 @@ int hexadecimalToDecimal(string s){
     int ans = 0 ,x = 1 ,n = s.size() ,i = 0;
     while(i < n){
         char lastDigit = s[n-1-i];
-        if(lastDigit >= '0' && lastDigit <= '9'){
+        if(lastDigit >= '0' && lastDigit <= '9')
             ans += (lastDigit-'0')*x;
-        }
-        else{
+        else
             ans += (lastDigit-'A'+10)*x;
-        }
         x *= 16;
         ++i;
     }
@@ -19,12 +17,10 @@ string decimalToHexadecimal(int n){
     string ans = "";
     while(n){
         int lastDigit = n%16;
-        if(lastDigit >= 0 && lastDigit <= 9){
+        if(lastDigit >= 0 && lastDigit <= 9)
             ans = to_string(lastDigit) + ans;
-        }
-        else{
+        else
             ans = (char)('A'+lastDigit-10) + ans;
-        }
         n /= 16;
         x *= 10;
     }

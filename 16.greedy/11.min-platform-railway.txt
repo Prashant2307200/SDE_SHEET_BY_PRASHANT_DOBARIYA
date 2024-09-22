@@ -1,0 +1,27 @@
+int findPlatform(int arr[],int dep[],int n) {
+    int ans = 1;
+    for(int i = 0; i < n; i++) {
+        int count = 1; 
+        for(int j = i+1; j < n; j++) {
+            if((arr[j] <= arr[i] && arr[i] <= dep[j]) || (arr[i] <= arr[j] && arr[j] <= dep[i])) 
+                count++;
+        }
+        ans = max(ans, count);  
+    }
+    return ans;
+}
+
+
+    int findPlatform(int arr[], int dep[], int n) { 
+        sort(arr, arr + n);
+        sort(dep, dep + n);
+        int cnt = 0, maxCnt = 0, i = 0, j = 0;
+        while(i < n) {
+            if(arr[i] <= dep[j])
+                cnt++, ++i;
+            else
+                cnt--, ++j;
+            maxCnt = max(maxCnt, cnt);
+        }
+        return maxCnt;
+    }

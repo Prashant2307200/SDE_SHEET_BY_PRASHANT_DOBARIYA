@@ -1,7 +1,7 @@
 vector<int> singleNumber(vector<int>& nums) {
     int xorSum = 0;
     for(auto& num : nums)
-        xorSum ^= num ;
+        xorSum ^= num;
     int num1 = 0;
     int rmsb = xorSum & ~(xorSum-1LL);
     for(auto& num : nums){

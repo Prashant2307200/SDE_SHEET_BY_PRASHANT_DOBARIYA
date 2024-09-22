@@ -17,19 +17,18 @@ class Solution {
 
     public:
         bool isAnagram(string s, string t) {
-            int n = s.size();
-            int m = t.size();
-            if(n != m){
+            int n = s.size(), m = t.size();
+            if(n != m)
                 return 0;
-            }for(auto& ch : s){
+            for(auto& ch : s)
                 hsh[ch-'a']++;
-            }for(auto& ch : t){
+            for(auto& ch : t)
                 hsh[ch-'a']--;
-            }for(auto& freq : hsh){
-                if(freq != 0){
+            for(auto& freq : hsh){
+                if(freq != 0)
                     return 0;
-                }
-            }return 1;
+            }
+            return 1;
         }
 };
 
@@ -37,3 +36,4 @@ class Solution {
 bool isAnagram(string s, string t) {
     return is_permutation(s.begin(),s.end(),t.begin(),t.end());
 } 
+ 

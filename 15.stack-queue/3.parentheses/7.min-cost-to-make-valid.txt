@@ -1,0 +1,27 @@
+int findMinimumCost(string s) {
+    int n = s.size() ,a = 0 ,b = 0;
+    if(n%2 != 0){
+        return -1; 
+    }
+    stack<char> st;
+    for(auto& brac : s){
+        if(brac == '{'){
+            st.push(brac);
+        }else {
+            if(brac == '}' && !st.empty() && st.top() == '{'){
+                st.pop();
+            }else{
+                st.push(brac);
+            }
+        }
+    }
+    int sz = st.size();
+    while(!st.empty()){
+        if(st.top() == '{'){
+            a++;
+        }
+        st.pop();
+    }
+    b = sz-a;
+    return (a+1)/2 + (b+1)/2;
+}

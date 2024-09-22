@@ -1,0 +1,12 @@
+    int minPathSum(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        vector<int> dp(n, 1e8);
+        dp[0] = grid[0][0];
+        for(int i = 0; i < m; ++i) {
+            for(int j = 0; j < n; ++j) {
+                if(i == 0 && j == 0) continue;
+                dp[j] = grid[i][j] + min(i ? dp[j]:1e8, j ? dp[j-1]:1e8);
+            }
+        }
+        return dp[n-1];
+    }
