@@ -8,3 +8,5 @@ int maxCircSubArrSum(int arr[],int n){
     WrapSum = totalSum + kadane(arr,n);
     return max(wrapSum, nonWrapSum);
 }
+
+10 20 -4 1

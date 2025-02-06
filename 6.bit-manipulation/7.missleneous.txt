@@ -67,7 +67,7 @@ int majorityElement(vector<int>& nums) {
             if((nums[j]>>i)&1)
                 sum++;
         }
-        if(sum > n/2)
+        if (sum > n/2)
             ans |= (1<<i);
     }
     return ans;
@@ -309,7 +309,7 @@ int findDuplicate(vector<int>& nums) {
 int findDuplicate(vector<int>& nums) {
     int slow = nums[0];
     int fast = nums[0];
-    do{
+    do {
         slow = nums[slow];
         fast = nums[nums[fast]];
     } while(slow != fast);

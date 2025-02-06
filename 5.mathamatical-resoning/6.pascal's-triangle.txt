@@ -1,4 +1,32 @@
 class Solution {
+    unsigned long long int fact(int n) {
+        unsigned long long int fact = 1;
+        for(int i = 1; i <= n; ++i) {
+            fact *= i;
+        }
+        return fact;
+    }
+    int iCj(int i, int j) {
+        return (int) (fact(i) / (fact(i-j)*fact(j)));
+    }
+public:
+    vector<vector<int>> generate(int numRows) {
+        int n = numRows;
+        vector<vector<int>> ans;
+        for(int i = 0; i < n; ++i) {
+            vector<int> row;
+            for(int j = 0; j <= i; ++j) {
+                int nCr = iCj(i, j);
+                row.push_back(nCr);
+            }
+            ans.push_back(row);
+        }
+        return ans;
+    }
+};
+
+
+class Solution {
     vector<int> genRow(int n){
         vector<int> row;
         int ans = 1;
@@ -16,5 +44,20 @@ public:
         for(int i = 0; i < numRows; ++i)
             triangle.push_back(genRow(i+1));
         return triangle;
+    }
+};
+
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> ans(numRows);
+        for (int i = 0; i < numRows; ++i) {
+            ans[i].resize(i + 1);
+            ans[i][0] = ans[i][i] = 1; 
+            for (int j = 1; j < i; ++j) {
+                ans[i][j] = ans[i - 1][j - 1] + ans[i - 1][j]; 
+            }
+        }
+        return ans;
     }
 };

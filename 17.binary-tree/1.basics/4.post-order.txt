@@ -38,10 +38,6 @@ public:
         return postOrder;
     }
 
-    a c g f b e d
-    d e b f g c a
-
-
     vector<int> postorderTraversal(TreeNode* root) {
         vector<int> ans;
         if(!root)

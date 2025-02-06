@@ -22,7 +22,7 @@ void rotate(vector<int>& nums, int k) {
     int n = nums.size();
     vector<int> ans(n);
     for(int i = 0; i < n; ++i)
-        ans[(i+k+n)%n] = nums[i];
+        ans[(i+k)%n] = nums[i];  // (i-k+n)%n
     nums = ans;
 }
 
@@ -35,4 +35,3 @@ void rotate(vector<int>& nums, int k) {
         reverse(nums.end()-k,nums.end());
         reverse(nums.begin(),nums.end());
 }
-

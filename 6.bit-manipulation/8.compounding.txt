@@ -42,5 +42,4 @@ int divide(int dividend, int divisor) {
     }
     res = sign * res;
     return res > INT_MAX ? INT_MAX : res < INT_MIN ? INT_MIN : (int)res;
-}    
-
+}       

@@ -1,6 +1,5 @@
 OOPs :
 
-
 ENCAPSULATION : data / information hiding
 ABSTRACTION   : implementation hiding
 INHERITENCE   : mode ,types ,ambiguity
@@ -32,7 +31,7 @@ class Human{
         bool gender;
 };
         
-class Student : public Human{
+class Student : public Human {
     private :
         char* name;
         int age;

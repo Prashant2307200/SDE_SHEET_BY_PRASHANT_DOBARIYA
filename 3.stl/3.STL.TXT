@@ -26,7 +26,7 @@ set<int>s unordered_set<int>us multiset<int>s .insert() .find() .erase()
 
 stack : lifo push pop top   empty
 queue : fifo push pop front empty
-dequeue : push_front/back pop_front/back
+deque : push_front/back pop_front/back
 priority_queue
 
 auto inc = [&](int x){return x+1}(2);  //2

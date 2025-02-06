@@ -1,0 +1,5 @@
+1. count ways: sum(dp) where dp indexing follow up entire range
+2. min cost: min(dp) with including current cost 
+3. exist or not: or(dp)
+4. explore: include one or more time dp and exclude dp for current dp
+5. simultaneous: include both or include one and exclude another one with toggle, try out all combos

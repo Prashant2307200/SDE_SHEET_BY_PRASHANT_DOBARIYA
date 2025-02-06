@@ -16,4 +16,4 @@ public:
         transpose(n ,m ,matrix);
         revRow(n ,m ,matrix);
     }
-};   
+};    

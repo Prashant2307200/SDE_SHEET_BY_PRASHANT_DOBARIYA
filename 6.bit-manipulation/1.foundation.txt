@@ -9,7 +9,7 @@ INTUITION :
 ->  update : clear + set
 ->  toggle : n ^= (1<<i)
 ->  copy : x | (y & ((1<<(r-l+1))-1)<<(l-1))
-->  comp(n) : u - n or u & ~n or u = comp(n)|n
+->  comp(n) : u - n or (u-1) & ~n or u = comp(n)|n
 ->  clrRMBtilli : n & -(1<<(i+1))
 ->  clrLMBtilli : n & (1<<(i+1))-1
 ->  rmsb : n & -n  or n& ~n+1 or n& ~(n-1)
@@ -19,3 +19,5 @@ INTUITION :
 ->  xor : till n ,in range ,club ,abstractor ,idx ,oddUnique
 ->  bitCntArr for specific nature
 ->  visited ,voting ,idx sort to find dup ,floyd's cycle ,modulo cycle
+->  gray_code: start ^ i ^ (i >> 1) and xor of g/2^n
+->  max xor 2: msb give large no
