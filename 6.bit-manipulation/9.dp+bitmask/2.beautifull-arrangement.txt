@@ -1,0 +1,45 @@
+class Solution {
+    vector<vector<int>> dp;
+    int f(int idx, int mask, vector<int> nums, int n) {
+        if (idx >= n) return 1;
+        if (dp[idx][mask] != -1) return dp[idx][mask];
+        int cnt = 0;
+        for (int i = 0; i < n; ++i) {
+            if ((mask >> i) & 1) continue;
+            if (nums[i]%(idx+1) == 0 || (idx+1)%nums[i] == 0) 
+                cnt += f(idx + 1, mask | (1 << i), nums, n);
+            else return 0;
+        }
+        return dp[idx][mask] = cnt;
+    }
+public:
+    int countArrangement(int n) {
+        dp.resize(n + 1, vector<int> ((1 << n) + 1, -1));
+        vector<int> nums;
+        for (int i = 1; i <= n; ++i)
+            nums.push_back(i);
+        return f(0, 0, nums, n);
+    }
+};
+
+class Solution {
+    vector<vector<int>> dp; 
+public:
+    int countArrangement(int n) {
+        dp.resize(n + 1, vector<int> ((1 << n) + 1, 0));
+        vector<int> nums;
+        for (int i = 1; i <= n; ++i)
+            nums.push_back(i);
+        for (int i = 0; i <= (1 << n); ++i)
+            dp[n][i] = 1;
+        for (int i = n-1; i >= 0; --i) {
+            for (int j = 0; j < (1 << n); ++j) {
+                for (int i = 0; i < n; ++i) {
+                    if ((j >> i) & 1) continue;
+                    dp[i][j] += dp[i+1][j | (1 << i)];
+                }
+            }
+        }
+        return dp[0][0];
+    }
+};

@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool canPartitionKSubsets(vector<int>& nums, int k) {
+
+        int n = nums.size();
+        int masks = (1 << n);
+        vector<bool> dp(masks);
+        vector<int> total(masks);
+        dp[0] = 1, total[0] = 0;
+
+        sort(nums.rbegin(), nums.rend());
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+
+        if (sum%k != 0) return 0;
+        sum /= k;
+        if (nums[0] > sum) return 0;
+
+        for (int i = 0; i < masks; ++i) {
+            if (!dp[i]) continue;
+            for (int j = 0; j < n; ++j) {
+                int temp = i | (1 << j);
+                if (temp == i) continue;
+                if (nums[j] <= (sum - total[i]%sum))
+                    dp[temp] = 1, total[temp] = nums[j] + total[i];
+                else break;
+            }
+        }
+        return dp[masks - 1];
+    }
+};

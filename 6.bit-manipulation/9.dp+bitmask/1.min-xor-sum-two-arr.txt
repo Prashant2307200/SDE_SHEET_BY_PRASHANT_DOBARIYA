@@ -1,0 +1,41 @@
+class Solution {
+    vector<vector<int>> dp;
+    int f(int idx, int mask, vector<int>& nums1, vector<int>& nums2, int m, int n) {
+        if (idx >= m) return 0;
+        if (dp[idx][mask] != -1) return dp[idx][mask];
+        int ans = INT_MAX;
+        for (int i = 0; i < n; ++i) {
+            if (mask & (1 << i)) continue;
+            int curr = nums1[idx] ^ nums2[i];
+            int rop = f(idx + 1, mask | (1<<i), nums1, nums2, m, n);
+            ans = min(ans, curr + rop);
+        }
+        return dp[idx][mask] = ans;
+    }
+public:
+    int minimumXORSum(vector<int>& nums1, vector<int>& nums2) {
+        int m = nums1.size(), n = nums2.size();
+        dp.resize(m+1, vector<int> ((1 << n), -1));
+        return f(0, 0, nums1, nums2, m, n);
+    }
+};
+
+class Solution {
+    vector<vector<int>> dp; 
+public:
+    int minimumXORSum(vector<int>& nums1, vector<int>& nums2) {
+        int m = nums1.size(), n = nums2.size();
+        dp.resize(m+1, vector<int> ((1 << n), 1e9));
+        for (int i = m-1; i >= 0; --i) {
+            for (int j = 0; j < (1 << n); ++j) {
+                for (int k = 0; k < n; ++k) {
+                    if ((j >> k)&1) continue;
+                    int curr = nums1[i] ^ nums2[k];
+                    int rop = (i == m-1) ? 0:dp[i+1][j | (1 << k)];
+                    dp[i][j] = min(dp[i][j], rop + curr);
+                }
+            }
+        }
+        return dp[0][0];
+    }
+};

@@ -1,0 +1,59 @@
+vector<bool> isSubsetSum(vector<int>arr, int sum){
+    int n = arr.size();
+    vector<bool> dp(sum+1, 0);
+    dp[0] = 1;
+    for(int i = 1; i <= n; ++i) {
+        for(int j = sum; j >= arr[i-1]; --j) 
+            dp[j] = dp[j] || dp[j-arr[i-1]];
+    }
+    return dp;
+}
+int minimumDifference(vector<int>& nums){
+    int n = nums.size();
+	int sum = accumulate(arr.begin(),arr.end(),0);
+	vector<bool> dp = isSubsetSum(arr,sum);
+	int mini = INT_MAX;
+	for(int i = 0; i <= sum/2; ++i){
+		if(!dp[i])	continue;
+		mini = min(mini, abs((sum-i)-i));
+	}
+	return mini;
+}
+
+
+class Solution {
+    vector<vector<vector<int>>> allSubsetSumByDivision(vector<int>& nums, int n) {
+        int masks = (1 << n);
+        vector<vector<int>> left(n + 1), right(n + 1);
+        for (int i = 0; i < masks; ++i) {
+            int sz = 0, l = 0, r = 0;
+            for (int j = 0; j < n; ++j) 
+                if ((i >> j) & 1)   l += nums[j], r += nums[n + j], sz++;
+            left[sz].push_back(l);
+            right[sz].push_back(r);
+        }   
+        return { left, right };
+    }
+public:
+    int minimumDifference(vector<int>& nums) {
+        int n = nums.size() >> 1;
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        int target = sum >> 1;
+        vector<vector<vector<int>>> partition = allSubsetSumByDivision(nums, n);
+        vector<vector<int>> left = partition[0], right = partition[1];
+        int ans = INT_MAX;
+        ans = min(abs(sum - 2*left[n][0]), abs(sum - 2*right[n][0])); 
+        for (int lsz = 1; lsz < n; ++lsz) {
+            auto l = left[lsz];
+            auto r = right[n - lsz];
+            sort(r.begin(), r.end());
+            for (auto& a: l) {
+                int need = target - a;
+                auto it = lower_bound(r.begin(), r.end(), need);
+                if (it == r.end()) continue;
+                ans = min(ans, abs(sum - 2*(a + *it))); 
+            }
+        }
+        return ans;
+    }
+};
